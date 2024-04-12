@@ -1,15 +1,15 @@
-#this task installs grub and fixes an ubuntu bug.
+#Ataza honek grub instalatzen du eta ubunturen bug bat konpontzen du
 ---
-- name: Install grub.
+- name: Grub instalatu.
   apt:
     name: grub-pc
 
-- name: Istall grub EFI
+- name: 64 biteko sistemetan EFI bertsioa instalatu ere.
   apt:
     name: grub-efi-amd64-signed
   when: ansible_architecture == 'x86_64'
 
-- name: Fix ubuntu's 30 second bug in grub.
+- name: Ubunturen 30 segunduen bug-a konpondu.
   lineinfile:
     path: /etc/default/grub
     insertafter: '^(.*)GRUB_TIMEOUT=(.*)$'

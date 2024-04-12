@@ -1,6 +1,6 @@
-#this task configures ubuntu or debian repositories
+#Ataza honek repositorioak konfiguratzen ditu. "var" karpetatik Debian edo Ubunturenak aukeratzen ditu.
 ---
-- name: add updates repo.
+- name: updates repoa gehitu.
   apt_repository:
     repo: "{{ item  }} {{ repo }} {{ ansible_distribution_release }}-updates {{ compo }}"
     state: present
@@ -8,7 +8,7 @@
     - "deb"
     - "deb-src"
 
-- name: add Debian security repo.
+- name: Debian security repoa gehitu.
   apt_repository:
     repo: "{{ item }} http://security.debian.org/debian-security {{ ansible_distribution_release }}-security {{ compo }}"
     state: present
@@ -17,7 +17,7 @@
     - "deb-src"
   when: ansible_distribution == 'Debian'
 
-- name: add Ubuntu security repo.
+- name: Ubuntu security repoa gehitu.
   apt_repository:
     repo: "{{ item }} http://security.ubuntu.com/ubuntu {{ ansible_distribution_release }}-security {{ compo }}"
     state: present
@@ -26,12 +26,12 @@
     - "deb-src"
   when: ansible_distribution == 'Ubuntu'
 
-- name: Remove original sources.list.
+- name: sources.list originala kendu.
   file:
     path="/etc/apt/sources.list"
     state=absent
 
-- name: Add standard repo.
+- name: standard repoak gehitu.
   apt_repository:
     repo: "{{ item  }} {{ repo }} {{ ansible_distribution_release }} {{ compo }}"
     state: present

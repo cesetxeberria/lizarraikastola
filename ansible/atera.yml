@@ -1,24 +1,24 @@
-#this will be executed before exiting the chroot
+#chroot-etik atera aurretik eman beharreko pausoak
 ---
-- name: Remove useless packages from the cache
+- name: APT-ren katxea hustu.
   apt:
     autoclean: yes
 
-- name: Remove dependencies that are no longer required
+- name: Ezabatu automatikoki instalatu eta jada beharrezkoak ez diren programak.
   apt:
     autoremove: yes
 
-- name: Umount proc
+- name: proc desmuntatu
   mount:
     path: /proc
     state: absent
 
-- name: Umount sys
+- name: sys desmuntatu
   mount:
     path: /sys
     state: absent
 
-- name: Umount devpts
+- name: devpts desmuntatu
   mount:
     path: /dev/pts
     state: absent

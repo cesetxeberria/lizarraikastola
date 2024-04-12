@@ -1,20 +1,20 @@
-#some custom tweaks
+#Ataza honek konfigurazio aldaketa batzuk egiten ditu.
 ---
-- name: Disable pcspeaker.
+- name: pcspeaker-a kendu.
   lineinfile:
     create: yes
     path: "/etc/modprobe.d/nobeep.conf"
     line: "blacklist pcspkr"
 #now run 'depmod -a'?
 
-- name: Quiet pcspeaker.
+- name: pcspeaker-a ixildu.
   replace:
     dest: "/etc/inputrc"
     regexp: "# set bell-style none"
     replace: "set bell-style none"
 # set bell-style visible?
 
-- name: Copy custom scripts
+- name: Script batzuk kopiatu.
   copy:
     src: "{{ role_path }}/files/usr/local/bin/{{ item }}"
     dest: "/usr/local/bin/{{ item }}"
@@ -24,13 +24,13 @@
      - unmute
      - wifion
 
-- name: Power button will power off the system.
+- name: Pizteko botoi fisikoa sakatzean sistema itzali.
   replace:
     dest: /etc/systemd/logind.conf
     regexp: '#HandlePowerKey=poweroff'
     replace: 'HandlePowerKey=poweroff'
 
-- name: Set custom grub options
+- name: Grub konfiguratu.
   lineinfile:
     dest: /etc/default/grub
     regexp: "{{ item.old }}"

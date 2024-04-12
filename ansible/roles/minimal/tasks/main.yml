@@ -1,5 +1,5 @@
-#this task will add some repositories and install basic packages
-#it will add some config tweaks and custom scripts
+#Ataza honek repositorioak konfiguratu eta programa batzuk instalatzen ditu.
+#Gainera gure konfigurazio batzuk jarri eta script batzuk kopiatzen ditu.
 ---
   - include_vars: "{{ ansible_distribution }}.yml"
 

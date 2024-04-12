@@ -1,6 +1,6 @@
-#this task sets the timezone for spain
+#Ataza honek Madrilgo ordutegia jartzen du.
 ---
-  - name: Change localtime /etc/localtime for Spain
+  - name: /etc/localtime fitxategia konfiguratu.
     file:
       src: /usr/share/zoneinfo/Europe/Madrid
       dest: /etc/localtime
@@ -9,4 +9,4 @@
 
   - name: Dpkg-reconfigure tzdata
     command: /usr/sbin/dpkg-reconfigure --frontend noninteractive tzdata
-    when: localtime.changed == true
+    when: localtime is changed

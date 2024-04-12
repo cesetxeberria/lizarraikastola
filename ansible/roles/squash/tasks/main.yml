@@ -1,55 +1,55 @@
-#this role will clean temporary files from a debootstraped system and compress it in a squashfs file
+#Rol honek aldi baterako fitxategiak ezabatuko ditu eta sistema squashfs fitxategi batetan konprimatuko du.
 ---
-  - name: delete hostname, the client will get one at boot
+  - name: ezabatu hostname fitxategia, bezeroak automatikoki berria lortuko du
     shell: /bin/rm -rf {{ inventory_hostname }}/live/squashfs-root/etc/hostname
 
-  - name: delete resolv.conf, a new one will be created at boot
+  - name: ezabatu resolv.conf fitxategia, bezeroak automatikoki bat sortuko du
     shell: /bin/rm -rf {{ inventory_hostname }}/live/squashfs-root/etc/resolv.conf
 
-  - name: cleanup | sparse files
+  - name: aldi baterako fitxategiak ezabatu.
     shell: /bin/rm -rf {{ inventory_hostname }}/live/squashfs-root/var/cache/apt/archives/*.deb
 
-  - name: cleanup | sparse files
+  - name: aldi baterako fitxategiak ezabatu.
     shell: /bin/rm -rf {{ inventory_hostname }}/live/squashfs-root/var/cache/apt/archives/partial/*
 
-  - name: cleanup | sparse files
+  - name: aldi baterako fitxategiak ezabatu.
     shell: /bin/rm -rf {{ inventory_hostname }}/live/squashfs-root/var/cache/debconf/*-old
 
-  - name: cleanup | sparse files
+  - name: aldi baterako fitxategiak ezabatu.
     shell: /bin/rm -rf {{ inventory_hostname }}/live/squashfs-root/var/lib/apt/lists/*
 
-  - name: Copy vmlinuz Debian
+  - name: vmlinuz kopiatu. Debian
     copy:
       src: "{{ inventory_hostname }}/live/squashfs-root/vmlinuz"
       dest: "{{ inventory_hostname }}/vmlinuz"
       mode: 0644
     when: distro == 'debian'
 
-  - name: Copy initrd Debian
+  - name: initrd kopiatu. Debian
     copy:
       src: "{{ inventory_hostname }}/live/squashfs-root/initrd.img"
       dest: "{{ inventory_hostname }}/initrd.img"
       mode: 0644
     when: distro == 'debian'
 
-  - name: Copy vmlinuz Ubuntu
+  - name: vmlinuz kopiatu. Ubuntu
     copy:
       src: "{{ inventory_hostname }}/live/squashfs-root/boot/vmlinuz"
       dest: "{{ inventory_hostname }}/vmlinuz"
       mode: 0644
     when: distro == 'ubuntu'
 
-  - name: Copy initrd Ubuntu
+  - name: initrd kopiatu. Ubuntu
     copy:
       src: "{{ inventory_hostname }}/live/squashfs-root/boot/initrd.img"
       dest: "{{ inventory_hostname }}/initrd.img"
       mode: 0644
     when: distro == 'ubuntu'
 
-  - name: Create filesystem.squashfs file
+  - name: filesystem.squashfs fitxategia sortu.
     command: chdir={{ inventory_hostname }}/live mksquashfs squashfs-root filesystem.squashfs
 
-  - name: Remove squashfs-root folder
-    file: 
+  - name: squashfs-root karpeta ezabatu.
+    file:
       path="{{ inventory_hostname }}/live/squashfs-root"
       state=absent

@@ -1,6 +1,6 @@
-#this task configures the system to use basque locale
+#Ataza honetan sistema euskeraz jarriko dugu
 ---
-- name: Install basque and spanish locales in ubuntu.
+- name: Instalatu euskera eta gaztelaniako lokalak. Ubuntu.
   apt:
     name: "{{ packages }}"
   vars:
@@ -9,21 +9,21 @@
     - language-pack-eu
   when: ansible_distribution == 'Ubuntu'
 
-- name: Add spanish locale
+- name: Aktibatu gaztelaniako lokala.
   locale_gen:
     name: es_ES.UTF-8
     state: present
   register: spanish
 
-- name: Add basque locale
+- name: Aktibatu euskerako lokala.
   locale_gen:
     name: eu_ES.UTF-8
     state: present
   register: basque
 
-- name: Dpkg-reconfigure locales.
+- name: Aldaketak egon badira "dpkg-reconfigure" exekutatu konfigurazioa eguneratzeko.
   command: /usr/sbin/dpkg-reconfigure --frontend=noninteractive locales
   when: (spanish is changed) or (basque is changed)
 
-- name: Update-locale. Locale is set to basque, with spanish as fallback.
+- name: Sistemaren defektuzko hizkuntza euskera jarri. Euskerazko itzulpena ez duten programetan gaztelera erabili.
   command: /usr/sbin/update-locale LANG=eu_ES.UTF-8 LANGUAGE=eu:es

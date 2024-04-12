@@ -1,7 +1,7 @@
-#Install tasksel and standard packages. If you want to know what's installed...
+#Ataza honek tasksel eta taskel-en "standard" paketeak instalatzen ditu. Zerrenda lortzeko hau erabili dugu.
 #tasksel --new-install install standard --debconf-apt-progress "--logfile packages"
 ---
-- name: Install tasksel.
+- name: tasksel instalatu.
   apt:
     name: tasksel
     install_recommends: no
@@ -10,7 +10,7 @@
 #  command: /usr/bin/tasksel --new-install install standard
 #  when: ansible_distribution == 'Debian'
 
-- name: Install standard tasksel packages. Ubuntu.
+- name: tasksel standard paketeak instalatu. Ubuntu.
   apt:
     name: "{{ packages }}"
   vars:
@@ -113,7 +113,7 @@
     - xz-utils
   when: ansible_distribution == 'Ubuntu'
 
-- name: Install standard tasksel packages. Debian.
+- name: tasksel standard paketeak instalatu. Debian.
   apt:
     name: "{{ packages }}"
   vars:
@@ -234,8 +234,8 @@
     - xz-utils
   when: ansible_distribution == 'Debian'
 
-#add PPA and autoupdate
-- name: Install software-properties-common.
+#PPA-k gehitzeko auketa eta apt autoupdate.
+- name: software-properties-common instalatu.
   apt:
     name: software-properties-common
     install_recommends: no

@@ -1,41 +1,48 @@
-#this role executes debootstrap using vars defined in the hosts file and the files inside "vars" dir. there is one for ubuntu and another one for debian
+#rol honek debootstrap programa exekutatzen du.
+#aldagai batzuk hosts fitxategitik hartzen ditu.
+#beste aldagai batzuk "vars" direktoriotik hartzen ditu. Ubuntuk eta Debianek balio desberdinak dituzte.
 ---
+#host fitxategian ikusi debian edo ubuntu den. Horrekin repositorio zuzenak aukeratu.
   - include_vars: "{{ distro }}.yml"
 
-  - name: Check if it already exists a squashfs-root folder.
+  - name: Begiratu squashfs-root karpeta existitzen den. Erdizka geratu den instalazio bat izan daiteke.
     stat:
       path: "{{ inventory_hostname }}/live/squashfs-root"
-    register: squashdir
+    register: squashfs_root_dir
 
-  - name: Check if it already exists a filesystem.squashfs file.
+  - name: Begiratu filesystem.squashfs fitxategia existitzen den. Aurretik existitzen den instalazio bat izan daiteke.
     stat:
       path: "{{ inventory_hostname }}/live/filesystem.squashfs"
-    register: filesystem
+    register: filesystem_file
 
-  - name: filesystem.squashfs exists but squshsfs-root doesn't. Extract the old file.
+#filesystem.squashfs fitxategia existitzen da baina squashfs-root karpeta ez. Bezeroa sortuta dago eta aldaketak egin nahi dizkiogu.
+#aurreko instalazioa erauziko dugu eta bertan lan egin.
+  - name: Erauzi filesystem.squashfs fitxategi zaharra.
     command: chdir={{ inventory_hostname }}/live unsquashfs filesystem.squashfs
     when:
-      - filesystem.stat.exists == True
-      - squashdir.stat.exists == False
+      - filesystem_file.stat.exists == True
+      - squashfs_root_dir.stat.exists == False
 
-  - name: Remove old squashfs file.
-    file: 
+  - name: Ezabatu filesystem.squashfs fitxategi zaharra.
+    file:
       path="{{ inventory_hostname }}/live/filesystem.squashfs"
       state=absent
     when:
-      - filesystem.stat.exists == True
-      - squashdir.stat.exists == False
+      - filesystem_file.stat.exists == True
+      - squashfs_root_dir.stat.exists == False
 
-  - name: There is no filesystem file nor squashfs-root folder. Create the folder.
+#filesystem.squashfs fitxategia ez da existitzen eta squashfs-root karpeta ere ez. Bezeroa sortzen den lehen aldia da.
+#karpeta bat sortuko dugu eta bertan instalazio berri bat egin.
+  - name: Sortu bezeroarentzako karpeta.
     file:
       path: "{{ inventory_hostname }}/live/squashfs-root"
       state: directory
       mode: 0755
     when:
-      - filesystem.stat.exists == False
-      - squashdir.stat.exists == False
+      - filesystem_file.stat.exists == False
+      - squashfs_root_dir.stat.exists == False
 
-  - name: Create new installation using debootstrap.
+  - name: Sortu bezero berri bat debootstrap erabiliz.
     command: /usr/sbin/debootstrap
              --arch={{ arch }}
              --include={{ include_packages }}
@@ -43,6 +50,5 @@
              --merged-usr
              {{ suite }} {{ inventory_hostname }}/live/squashfs-root {{ repo }}
     when:
-      - filesystem.stat.exists == False
-      - squashdir.stat.exists == False
-
+      - filesystem_file.stat.exists == False
+      - squashfs_root_dir.stat.exists == False

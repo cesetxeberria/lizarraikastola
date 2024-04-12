@@ -1,5 +1,9 @@
-#ansible playbook to execute some roles. debootstrap will create the basic client an minimal will add some default packages and configs
-#if the host in the "desktops" group will execute the desktop role too. squash will create the filesystem.squash file and delete temporary files
+#hainbat rol exekutatzen dituen playbook-a. 
+#-debootstrap-ek sistema minimo bat sortuko du (oso mugatua).
+#-installer-ek debianen instalatzailearen pausoak emango ditu (hizkuntza konfiguratu, erabiltzaileak sortu...).
+#-minimal-ek guk aukeratutako programa eta konfigurazio batzuk gehituko ditu.
+#-desktop-ek ingurune grafikoa instalatuko du (hau "desktops" taldearen barruan daudenek erabiliko dute bakarrik).
+#-squash-ek baterako fitxategiak ezabatu eta filesystem.squash fitxategia sortuko du.
 ---
 - hosts: all
   connection: local

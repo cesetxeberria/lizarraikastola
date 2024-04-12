@@ -1,10 +1,10 @@
-#this task adds some basic packages to ur live system
+#Ataza honek oinarrizko programa batzuk instalatzen ditu gure sisteman.
 ---
-- name: Update everything to the latest version.
+- name: Sistema eguneratu.
   apt:
     upgrade: dist
 
-- name: Install some non-free firwmares. Debian.
+- name: Libreak ez diren firmware batzuk instalatu. Debian.
   apt:
     name: "{{ packages }}"
   vars:
@@ -13,7 +13,7 @@
     - firmware-linux-nonfree
   when: ansible_distribution == 'Debian'
 
-- name: Install my custom pacakges.
+- name: Programa extra batzuk instalatu.
   apt:
     name: "{{ packages }}"
     install_recommends: no

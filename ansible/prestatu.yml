@@ -1,4 +1,4 @@
-#this will be executed inside the chroot to avoid errors
+#chroot-era sartu aurretik egingo diren pausoak. Bestela programa batzuen instalazioan akatsak egon daitezke.
 ---
 - name: Mount proc
   mount:
@@ -21,13 +21,14 @@
     fstype: devpts
     state: mounted
 
-#debootstrap gets network configuration from the server but when modifying a previous installation there is no config file
-- name: Check if resolv.conf exists.
+#debootstrap-ek DNS-ak konfiguratzen ditu. 
+#Baina aurretik sortutako filesystem.squash bat aldatu nahi badugu, konfigurazio hori ez da existitzen (squash rolak kentzen duelako)
+- name: Begiratu resolv.conf existitzen den.
   stat:
     path: "/etc/resolv.conf"
   register: resolvconf
 
-- name: Configure resolv.conf.
+- name: Ez denez resolv.conf existitzen, bat sortu.
   blockinfile:
     dest: "/etc/resolv.conf"
     create: "true"
@@ -35,11 +36,12 @@
      nameserver 8.8.8.8
   when: resolvconf.stat.exists == False
 
-- name: inside chroot ansible gets server's architecture, so we fix it
+#i386 arkitekturako bezero bat sortu badugu, chroot barruan ansiblek ez du ondo detektatzen (zerbitzaria amd64 delako). Eskuz jartzen dugu.
+- name: i386 bezeroa bada, jarri ondo arkitektura, ez erabili zerbitzariarena.
   set_fact:
     ansible_architecture: i386
   when: arch == 'i386'
 
-- name: Run the equivalent of "apt-get update"
+- name: "apt-get update" exekutatu
   apt:
     update_cache: yes

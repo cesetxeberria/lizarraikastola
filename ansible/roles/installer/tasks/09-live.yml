@@ -1,6 +1,6 @@
-#configure the system to be live
+#Ataza honek sistema "live" bihurtzen du.
 ---
-- name: Install live-boot packages and haveged.
+- name: live-boot packages eta haveged instalatu.
   apt:
     name: "{{ packages }}"
     install_recommends: no
@@ -9,8 +9,9 @@
     - live-boot
     - haveged
 
-#Don't disconnect the net before shutting down. This is a pxe live system, so disconnecting would interrupt the shutdown process.
-- name: Create a folder for ifup@.service and networking.service
+#Itzali aurretik sarea ez deskonektatu.
+#Debian-ek itzaltzeko prozesuan sarea deskonektatzen du eta sistema sarean dagoenez, "zintzilik" gelditzen da.
+- name: Sortu karpeta bana ifup@.service eta networking.service konfiguratzeko.
   file:
     path: "{{ item }}"
     state: directory
@@ -19,7 +20,7 @@
     - "/etc/systemd/system/networking.service.d/"
   when: ansible_distribution == 'Debian'
 
-- name: Override default networking and ifup configuration. Now Debian won't disconnect before shutting down.
+- name: Konfigurazioak gainidatzi. Orain Debian-ek ez du sarea deskonektatuko sistema itzali aurretik.
   copy:
     src: "{{ role_path }}/files/etc/systemd/system/networking.service.d/override.conf"
     dest: "{{ item }}"
@@ -29,32 +30,32 @@
     - "/etc/systemd/system/ifup@.service.d/override.conf"
   when: ansible_distribution == 'Debian'
 
-- name: Dont save systemd journal. This is a live system we dont need it.
+- name: Desaktibatu systemd journal. Sistema itzaltzean dena ezabatuko denez, ez dugu behar.
   replace:
     dest: /etc/systemd/journald.conf
     regexp: '#Storage=auto'
     replace: 'Storage=none'
 
-#our systems name will be its mac address
-- name: Copy getnamebymac script
+#Sistemaren izena MAC helbidetik hartuko dugu.
+- name: getnamebymac script-a kopiatu.
   copy:
     src: "{{ role_path }}/files/usr/local/bin/getnamebymac"
     dest: "/usr/local/bin/getnamebymac"
     mode: 0755
 
-- name: Copy getnamebymac service.
+- name: getnamebymac zerbitzua kopiatu.
   copy:
     src: "{{ role_path }}/files/etc/systemd/system/getnamebymac.service"
     dest: "/etc/systemd/system/getnamebymac.service"
     mode: 0644
 
-- name: Enable getnamebymac service.
+- name: getnamebymac zerbitzua aktibatu.
   file:
     src: "/etc/systemd/system/getnamebymac.service"
     dest: "/etc/systemd/system/multi-user.target.wants/getnamebymac.service"
     state: link
 
-- name: Don't auto update apt
+- name: APT eguneratzaile automatikoa desaktibatu.
   file:
     path: "{{ item }}"
     state: absent
@@ -62,8 +63,8 @@
     - "/etc/systemd/system/timers.target.wants/apt-daily.timer"
     - "/etc/systemd/system/timers.target.wants/apt-daily-upgrade.timer"
 
-#those two tasks prepare the live system to be installable to the hard disk
-- name: Install needed programs.
+#bi ataza hauekin gure live sistema disko gogorrean instalatzeko aukera izango dugu
+- name: Sistema disko gogorrean instalatzeko beharrezko programak gehitu.
   apt:
     name: "{{ packages }}"
     install_recommends: no
@@ -74,7 +75,7 @@
     - parted
     - dosfstools
 
-- name: Copy installers
+- name: Sistema disko gogorrean instalatzeko scriptak kopiatu.
   copy:
     src: "{{ role_path }}/files/usr/local/sbin/{{ item }}"
     dest: "/usr/local/sbin/{{ item }}"

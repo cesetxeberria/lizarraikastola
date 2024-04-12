@@ -1,4 +1,4 @@
-#this is a simple playbook to execute the pxeserver role in localhost
+#playbook honek pxeserver rola exekutatzen du, ordenagailu honetan bertan
 ---
 - hosts: localhost
   connection: local

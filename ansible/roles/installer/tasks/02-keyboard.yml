@@ -1,6 +1,6 @@
-#this task configures spanish keyboard and UTF-8 charmap for the console
+#Ataza honetan teklatu espainiarra konfiguratzen dugu. Karaktereentzako UTF-8 sistema jartzen dugu.
 ---
-- name: Change /etc/default/keyboard for spanish keyboard
+- name: Aldatu /etc/default/keyboard teklatua espainiarra dela esateko.
   lineinfile:
     dest: /etc/default/keyboard
     regexp: 'XKBLAYOUT="us"'
@@ -8,18 +8,18 @@
     backrefs: yes
   register: keyboard
 
-- name: Change /etc/default/console-setup for spanish
+- name: Aldatu /etc/default/console-setup UTF-8 erabiltzeko.
   lineinfile:
     dest: /etc/default/console-setup
     regexp: 'CHARMAP="ISO-8859-15"'
     line: 'CHARMAP="UTF-8"'
     backrefs: yes
-  register: utf
+  register: charset
 
-- name: Dpkg-reconfigure keyboard-configuration
+- name: Aldaketak egon badira "dpkg-reconfigure" exekutatu konfigurazioa eguneratzeko.
   command: /usr/sbin/dpkg-reconfigure --frontend=noninteractive keyboard-configuration
-  when: keyboard.changed == true
+  when: keyboard is changed
 
-- name: Dpkg-reconfigure console-setup
+- name: Aldaketak egon badira "dpkg-reconfigure" exekutatu konfigurazioa eguneratzeko.
   command: /usr/sbin/dpkg-reconfigure --frontend=noninteractive console-setup
-  when: utf.changed == true
+  when: charset is changed

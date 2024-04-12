@@ -1,18 +1,18 @@
-#this task installs the kernel for debian or ubuntu. It also installs grub and some non-free firmwares for Debian.
+#Ataza honek kernela instalatzen du.
 ---
-- name: Install i386 kernel for Debian.
+- name: 32 biteko kernela instalatu. Debian.
   apt: name=linux-image-686-pae
   when:
     - ansible_distribution == 'Debian'
     - ansible_architecture == 'i386'
 
-- name: Install amd64 kernel for Debian.
+- name: 64 biteko kernela instalatu. Debian.
   apt: name=linux-image-amd64
   when:
     - ansible_distribution == 'Debian'
     - ansible_architecture == 'x86_64'
 
-- name: Install amd64 kernel for Ubuntu.
+- name: 64 biteko kernela instalatu. Ubuntu.
   apt:
     name: "{{ packages }}"
   vars:

@@ -1,11 +1,11 @@
-#Install network manager and configure netplan to use it in ubuntu.
+#Ataza honek network-manager instalatzen du. Ubuntuko netplan konfigurazioan network-manager erabiltzeko esaten diogu.
 ---
-- name: Install network-manager.
+- name: network-manager instalatu.
   apt:
     name: "network-manager"
     install_recommends: no
 
-- name: Let NetworkManager manage all devices on this system. Ubuntu.
+- name: Erabili NetworkManager sistema honen sareak kudeatzeko. Ubuntu.
   copy:
     src: "{{ role_path }}/files/etc/netplan/001-network-manager-all.yaml"
     dest: "/etc/netplan/01-network-manager-all.yaml"
