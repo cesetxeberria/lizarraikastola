@@ -1,0 +1,34 @@
+#ansible playbook to execute some roles. debootstrap will create the basic client an minimal will add some default packages and configs
+#if the host in the "desktops" group will execute the desktop role too. squash will create the filesystem.squash file and delete temporary files
+---
+- hosts: all
+  connection: local
+  roles:
+    - debootstrap
+
+- hosts: all
+  connection: chroot
+  vars:
+    ansible_host: "{{ inventory_hostname }}/live/squashfs-root"
+  tasks:
+    - include_tasks: prepare.yml
+    - include_role:
+        name: installer
+    - include_role:
+        name: minimal
+    - include_tasks: exit.yml
+
+- hosts: desktops
+  connection: chroot
+  vars:
+    ansible_host: "{{ inventory_hostname }}/live/squashfs-root"
+  tasks:
+    - include_tasks: prepare.yml
+    - include_role:
+        name: desktop
+    - include_tasks: exit.yml
+
+- hosts: all
+  connection: local
+  roles:
+    - squash

@@ -1,0 +1,39 @@
+#this task will set root's password in debian ("root") and create a user named "user" with password "user" in both ubuntu and debian
+#passwords are created with 'mkpasswd --method=sha-512'. you must install whois package to use it.
+---
+    - name: Set root user's pasword in Debian.
+      user:
+         name: root
+         password: $6$XtIYIO4tP9tuuCSK$Gfn6H0peyqVJ.KsOaXBQNJpsoiOMgcB0afL/5s/5zN33CmIuDdFaPEvmkZze/I/6C53GLbQF3U29uu39W5T/H1
+      when: ansible_distribution == 'Debian'
+
+    - name: Create a new user in Debian.
+      user:
+         name: user
+         password: $6$yfBEPbX/HQai$gc0qCZdrLUiSlw21LbRrfBsDtZ9cpjBisV.b.HCiaN/17x0NEnYNvF8JGsEYaOVHiiYUOAgnAc9wMQkrQaeOu/
+         shell: /bin/bash
+         createhome: no
+         groups: cdrom,floppy,audio,dip,video,plugdev,netdev,sudo
+      register: user
+      when: ansible_distribution == 'Debian'
+
+    - name: Create a new user in Ubuntu.
+      user:
+         name: user
+         password: $6$yfBEPbX/HQai$gc0qCZdrLUiSlw21LbRrfBsDtZ9cpjBisV.b.HCiaN/17x0NEnYNvF8JGsEYaOVHiiYUOAgnAc9wMQkrQaeOu/
+         shell: /bin/bash
+         createhome: no
+         groups: adm,cdrom,dip,plugdev,sudo
+      register: user
+      when: ansible_distribution == 'Ubuntu'
+
+    - name: User home will be created at first login.
+      replace:
+        dest: /usr/share/pam-configs/mkhomedir
+        regexp: 'Default: no'
+        replace: 'Default: yes'
+      register: pam
+
+    - name: pam-auth-update
+      command: pam-auth-update --package --enable mkhomedir
+      when: (user.changed == true) or (pam.changed == true)

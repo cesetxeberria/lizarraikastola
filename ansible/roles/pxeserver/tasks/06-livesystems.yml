@@ -1,0 +1,36 @@
+#prepare the server to create custom livecds
+---
+- name: Install needed pacakges.
+  apt:
+    name: "{{ packages }}"
+  vars:
+    packages:
+    - debootstrap
+    - squashfs-tools
+    - whois
+    - zstd
+#whois package will be used to create user passwords
+#zstd is required in jammy for apt
+
+- name: Create customubuntu dir.
+  file:
+    path: "{{ tftp_root }}/livecds/customubuntu"
+    state: directory
+    mode: 0755
+
+- name: Create customdebian dir.
+  file:
+    path: "{{ tftp_root }}/livecds/customdebian"
+    state: directory
+    mode: 0755
+
+#Newer versions of ubuntu use the gutsy script by default.
+#http://changelogs.ubuntu.com/changelogs/pool/main/d/debootstrap/debootstrap_1.0.128+nmu2ubuntu4/changelog
+- name: Create symlinks for ubuntu lunar and ubuntu noble
+  file:
+    src: "gutsy"
+    dest: "/usr/share/debootstrap/scripts/{{ item }}"
+    state: link
+  with_items:
+     - lunar
+     - noble

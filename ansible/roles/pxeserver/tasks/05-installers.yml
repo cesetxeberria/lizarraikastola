@@ -1,0 +1,29 @@
+#add debian installer to the pxe server
+---
+- name: Install packages.
+  apt:
+    name: "{{ packages }}"
+  vars:
+    packages:
+    - debian-installer-12-netboot-amd64
+    - debian-installer-12-netboot-i386
+
+- name: Create installer folder.
+  file:
+    path: "{{ tftp_root }}/installers/debian/{{ item }}"
+    state: directory
+    mode: 0755
+  with_items:
+     - i386
+     - amd64
+
+- name: Create symlinks for the installers
+  file:
+    src: "/usr/lib/debian-installer/images/12/{{ item.arch }}/text/debian-installer/{{ item.arch }}/{{ item.file }}"
+    dest: "{{ tftp_root }}/installers/debian/{{ item.arch }}/{{ item.file }}"
+    state: link
+  with_items:
+     - { arch: "i386", file: "linux" }
+     - { arch: "i386", file: "initrd.gz" }
+     - { arch: "amd64", file: "linux" }
+     - { arch: "amd64", file: "initrd.gz" }

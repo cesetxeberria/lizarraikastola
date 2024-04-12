@@ -1,0 +1,12 @@
+#this task will add some repositories and install basic packages
+#it will add some config tweaks and custom scripts
+---
+  - include_vars: "{{ ansible_distribution }}.yml"
+
+  - include_tasks: 01-repositories.yml
+
+  - include_tasks: 02-packages.yml
+
+  - include_tasks: 03-customtweaks.yml
+
+  - include_tasks: 04-networkmanager.yml

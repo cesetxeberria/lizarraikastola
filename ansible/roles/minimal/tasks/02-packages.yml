@@ -1,0 +1,38 @@
+#this task adds some basic packages to ur live system
+---
+- name: Update everything to the latest version.
+  apt:
+    upgrade: dist
+
+- name: Install some non-free firwmares. Debian.
+  apt:
+    name: "{{ packages }}"
+  vars:
+    packages:
+    - firmware-linux
+    - firmware-linux-nonfree
+  when: ansible_distribution == 'Debian'
+
+- name: Install my custom pacakges.
+  apt:
+    name: "{{ packages }}"
+    install_recommends: no
+  vars:
+    packages:
+    - rsync
+    - screen
+    - nfs-common
+    - watchdog
+    - wget
+    - atool
+    - zip
+    - unzip
+    - bzip2
+    - rar
+    - p7zip-full
+    - dosfstools
+    - ipxe
+    - sudo
+    - inxi
+    - ntfs-3g
+    - cifs-utils
