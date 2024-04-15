@@ -1,3 +1,3 @@
-#set directory for tftp_root
+#tftp_root karpeta non dagoen esan
 ---
 tftp_root: "/home/tftp"
