@@ -1,6 +1,6 @@
-#prepare the server to create custom livecds
+#Zerbitzaria gure bezero live propioak sortzeko prestatu
 ---
-- name: Install needed pacakges.
+- name: Beharrezko progamak instalatu.
   apt:
     name: "{{ packages }}"
   vars:
@@ -9,24 +9,24 @@
     - squashfs-tools
     - whois
     - zstd
-#whois package will be used to create user passwords
-#zstd is required in jammy for apt
+#whois erabiltzaileen pasahitz enkriptatuak sortzeko erabiliko dugu
+#zstd ubunturen azken bertsioetan derrigorrezkoa da, apt erabiltzeko
 
-- name: Create customubuntu dir.
+- name: customubuntu karpeta sortu.
   file:
     path: "{{ tftp_root }}/livecds/customubuntu"
     state: directory
     mode: 0755
 
-- name: Create customdebian dir.
+- name: customdebian karpeta sortu.
   file:
     path: "{{ tftp_root }}/livecds/customdebian"
     state: directory
     mode: 0755
 
-#Newer versions of ubuntu use the gutsy script by default.
+#Ubunturen bertsio berriek gutsy erabiltzen dute defektuz. Beraz, estekak eskuz sortu ditzakegu.
 #http://changelogs.ubuntu.com/changelogs/pool/main/d/debootstrap/debootstrap_1.0.128+nmu2ubuntu4/changelog
-- name: Create symlinks for ubuntu lunar and ubuntu noble
+- name: ubuntu lunar eta ubuntu noble-rentzat estekak sortu.
   file:
     src: "gutsy"
     dest: "/usr/share/debootstrap/scripts/{{ item }}"

@@ -1,6 +1,6 @@
-#install and configure pxelinux for bios and uefi based clients
+#pxelinux instalatu eta konfiguratu, bios eta uefi bezeroek erabili ahal izateko
 ---
-- name: Install pxelinux packages.
+- name: pxelinux eta syslinux instalatu.
   apt:
     name: "{{ packages }}"
   vars:
@@ -8,7 +8,7 @@
     - pxelinux
     - syslinux-efi
 
-- name: Create syslinux directories.
+- name: syslinux-ek behar dituen karpetak sortu.
   file:
     path: "{{ item }}"
     state: directory
@@ -17,13 +17,13 @@
      - "{{ tftp_root }}/syslinux/bios/pxelinux.cfg"
      - "{{ tftp_root }}/syslinux/efi"
 
-- name: Link both config files so we only need to update one.
+- name: Bios eta uefi fitxategiak lotu, horrela bat eguneratzearekin nahikoa izango da.
   file:
     src: "{{ tftp_root }}/syslinux/bios/pxelinux.cfg"
     dest: "{{ tftp_root }}/syslinux/efi/pxelinux.cfg"
     state: link
 
-- name: Create a link to the tftp-root inside syslinux folder.
+- name: syslinux-en karpetaren barruan tftp-root-era esteka sortu.
   file:
     src: "{{ tftp_root }}"
     dest: "{{ tftp_root }}/syslinux/{{ item }}/tftp"
@@ -32,7 +32,7 @@
      - bios
      - efi
 
-- name: Copy needed syslinux files. Bios.
+- name: syslinux-ek behar dituen fitxategiak tftp-root-era kopiatu. Bios.
   copy:
     src: "{{ item.src }}"
     dest: "{{ item.dest }}"
@@ -47,7 +47,7 @@
      - { src: "/usr/lib/syslinux/modules/bios/chain.c32", dest: "{{ tftp_root }}/syslinux/bios/chain.c32" }
      - { src: "/usr/lib/syslinux/modules/bios/linux.c32", dest: "{{ tftp_root }}/syslinux/bios/linux.c32" }
 
-- name: Copy needed syslinux files. Uefi.
+- name: syslinux-ek behar dituen fitxategiak tftp-root-era kopiatu. Uefi.
   copy:
     src: "{{ item.src }}"
     dest: "{{ item.dest }}"
@@ -62,7 +62,7 @@
      - { src: "/usr/lib/syslinux/modules/efi64/chain.c32", dest: "{{ tftp_root }}/syslinux/efi/chain.c32" }
      - { src: "/usr/lib/syslinux/modules/efi64/linux.c32", dest: "{{ tftp_root }}/syslinux/efi/linux.c32" }
 
-- name: Copy pxelinux default config file
+- name: pxelinux-en menua prestatu, txantiloi bidez.
   template:
     src: "{{ role_path }}/templates/tftproot/syslinux/pxelinux.j2"
     dest: "{{ tftp_root }}/syslinux/bios/pxelinux.cfg/default"

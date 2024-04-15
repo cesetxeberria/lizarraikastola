@@ -1,6 +1,7 @@
-#install and configure ipxe for bios and uefi based clients. it will be downloaded from github and compiled with custom menu
+#grub instalatu eta konfiguratu, bios eta uefi bezeroek erabili ahal izateko
+#github-etik deskargatzen dugu gure menuarekin konpilatzeko
 ---
-- name: Install git & build-essential
+- name: git eta build-essential instalatu.
   apt:
     name: "{{ packages }}"
   vars:
@@ -9,62 +10,62 @@
     - build-essential
     - liblzma-dev
 
-- name: Create ipxe directory
+- name: ipxe-ren karpeta sortu.
   file:
     path: "{{ tftp_root }}/ipxe"
     state: directory
     mode: 0755
 
-- name: Prepare embed.ipxe
+- name: embed.ipxe fitxategia prestatu, txantiloi bidez.
   template:
     src: "{{ role_path }}/templates/tftproot/ipxe/embed.j2"
     dest: "{{ tftp_root }}/ipxe/embed.ipxe"
     mode: 0644
 
-- name: Prepare default.ipxe
+- name: default.ipxe fitxategia prestatu, txantiloi bidez.
   template:
     src: "{{ role_path }}/templates/tftproot/ipxe/default.j2"
     dest: "{{ tftp_root }}/ipxe/default.ipxe"
     mode: 0644
 
-- name: Download ipxe from git
+- name: ipxe deskargatu, git repositoriotik.
   git:
     repo: 'https://github.com/ipxe/ipxe'
     dest: "{{ tftp_root }}/ipxe/git"
 
-- name: Check if undionly.kpxe exists
+- name: Begiratu undionly.kpxe existitzen den.
   stat:
     path: "{{ tftp_root }}/ipxe/undionly.kpxe"
   register: register_undionly
 
-- name: Build undionly.kpxe. This may take a while.
+- name: undionly.kpxe konpilatu. Denbora beharko du.
   shell: cd {{ tftp_root }}/ipxe/git/src && make bin/undionly.kpxe EMBED={{ tftp_root }}/ipxe/embed.ipxe
   when: register_undionly.stat.exists == false
 
-- name: Check if snponly.efi exists
+- name: Begiratu snponly.efi existitzen den.
   stat:
     path: "{{ tftp_root }}/ipxe/snponly.efi"
   register: register_snponly
 
-- name: Build snponly.efi. This may take a while
+- name: snponly.efi konpilatu. Denbora beharko du.
   shell: cd {{ tftp_root }}/ipxe/git/src && make bin-x86_64-efi/snponly.efi EMBED={{ tftp_root }}/ipxe/embed.ipxe
   when: register_snponly.stat.exists == false
 
-- name: Copy undionly.kpxe
+- name: undionly.kpxe ipxe-ren karpetara kopiatu.
   copy:
     src: "{{ tftp_root }}/ipxe/git/src/bin/undionly.kpxe"
     dest: "{{ tftp_root }}/ipxe/undionly.kpxe"
     mode: 0644
   when: register_undionly.stat.exists == false
 
-- name: Copy snponly.efi
+- name: snponly.efi ipxe-ren karpetara kopiatu.
   copy:
     src: "{{ tftp_root }}/ipxe/git/src/bin-x86_64-efi/snponly.efi"
     dest: "{{ tftp_root }}/ipxe/snponly.efi"
     mode: 0644
   when: register_snponly.stat.exists == false
 
-- name: Delete git files
+- name: git fitxategiak ezabatu.
   file:
     path: "{{ tftp_root }}/ipxe/git"
     state: absent

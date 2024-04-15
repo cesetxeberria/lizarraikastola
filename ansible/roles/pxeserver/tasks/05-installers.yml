@@ -1,6 +1,6 @@
-#add debian installer to the pxe server
+#pxe zerbitzarian debian instalatzaile ofiziala gehitu. tft-root karpetan estekak jarriko ditugu eguneraketa automatikoekin arazoak ekiditeko
 ---
-- name: Install packages.
+- name: Beharrezko programak instalatu.
   apt:
     name: "{{ packages }}"
   vars:
@@ -8,7 +8,7 @@
     - debian-installer-12-netboot-amd64
     - debian-installer-12-netboot-i386
 
-- name: Create installer folder.
+- name: Instalatzaileentzako karpetak sortu.
   file:
     path: "{{ tftp_root }}/installers/debian/{{ item }}"
     state: directory
@@ -17,7 +17,7 @@
      - i386
      - amd64
 
-- name: Create symlinks for the installers
+- name: Instalatzaileen loturak sortu.
   file:
     src: "/usr/lib/debian-installer/images/12/{{ item.arch }}/text/debian-installer/{{ item.arch }}/{{ item.file }}"
     dest: "{{ tftp_root }}/installers/debian/{{ item.arch }}/{{ item.file }}"

@@ -1,6 +1,6 @@
-#configure localhost as a dnsmasq and nfs-server
+#dnsmas eta nfs zerbitzaria prestatu
 ---
-- name: Install needed packages.
+- name: Beharrezko programak instalatu.
   apt:
     name: "{{ packages }}"
   vars:
@@ -9,30 +9,30 @@
     - nfs-kernel-server
     - python3-distutils-extra
 
-- name: Configure dnsmasq.
+- name: dnsmasq konfiguratu, txantiloi bidez.
   template:
     src: "{{ role_path }}/templates/etc/dnsmasq.d/custom.j2"
     dest: "/etc/dnsmasq.d/custom"
     mode: 0644
 
-- name: Create tftp-root directory.
+- name: tftp-root karpeta sortu.
   file:
     path: "{{ tftp_root }}"
     state: directory
     mode: 0755
 
-- name: Export tftp-root with nfs.
+- name: tftp-root karpeta nfs bidez partekatu.
   blockinfile:
     dest: "/etc/exports"
     block: |
      {{ tftp_root }}       *(ro,async,no_subtree_check)
 
-- name: Restart dnsmasq.
+- name: dnsmasq berrabiarazi.
   service:
     name: dnsmasq
     state: restarted
 
-- name: Restart nfs-kernel-server.
+- name: nfs-kernel-server berrabiarazi.
   service:
     name: nfs-kernel-server
     state: restarted
