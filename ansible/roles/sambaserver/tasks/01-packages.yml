@@ -1,0 +1,14 @@
+#This task installs samba and its dependencies
+---
+- name: Install dependencies.
+  apt:
+    name: "{{ packages }}"
+  vars:
+    packages:
+     - samba
+     - krb5-user
+     - krb5-config
+     - winbind
+     - smbclient
+     - libpam-winbind
+     - libnss-winbind
