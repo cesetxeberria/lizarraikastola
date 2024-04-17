@@ -1,6 +1,6 @@
-#connect the client to AD using ldap backend
+#bezeroa samba edo windows domeinu batetan konektatzeko prestatu
 ---
-  - name: Install dependencies.
+  - name: Beharrezko programak instalatu.
     apt:
       name: "{{ packages }}"
     vars:
@@ -16,21 +16,31 @@
        - packagekit
        - nss-updatedb
 
-  - name: If there is a keytab, configure sssd with kerberos.
+  - name: ldap erabiltzailearen pasahitza kopiatu.
+    copy:
+      src: "/root/ldap.keytab"
+      dest: "/etc/krb5.keytab"
+      mode: 0600
+#Fitxategia ez bada exisitzen erregistratu baina ez eman errorerik.
+    register: keytab
+    ignore_errors: true
+
+  - name: Kerberosekin konektatzeko konfigurazioa kopiatu, txantiloi bidez.
     template:
       src: "{{ role_path }}/templates/etc/sssd/sssd.j2"
       dest: "/etc/sssd/sssd.conf"
       mode: 0600
     register: sssd
+    when: keytab.failed == false
 
-  - name: Create home dir at login.
+  - name: Login egiterakoan erabiltzailearen home karpeta sortu.
     replace:
       dest: /usr/share/pam-configs/mkhomedir
       regexp: 'Default: no'
       replace: 'Default: yes'
     register: mkhomedir
 
-  - name: Update pam configuration.
+  - name: PAM konfigurazioa eguneratu.
     command: pam-auth-update --package --enable mkhomedir
     args:
     when: (sssd.changed  == true) or (mkhomedir.changed == true)
