@@ -1,45 +1,44 @@
-#This task configures the domain
+#Ataza honetan domeinua konfiguratuko dugu
 ---
-- name: Remove original samba configuration.
+- name: Aurreko smb.conf fitxategia ezabatu.
   file:
     path="/etc/samba/smb.conf"
     state=absent
 
-- name: Configure domain.
+- name: Domeinua konfiguratu. Pasahitza aldatu beharko da.
   ansible.builtin.command:
     argv:
       - /usr/bin/samba-tool
       - domain
       - provision
       - --server-role=dc
-#      - --use-rfc2307
       - --dns-backend=SAMBA_INTERNAL
-      - --realm=MYDOMAIN.ORG
-      - --domain=MYDOMAIN
+      - --realm={{ full_domain_name }}
+      - --domain={{ domain_name }}
       - --adminpass=DomainPass2
 
-- name: Copy kerberos configuration.
+- name: Sortu berri den kerberos konfigurazioa kopiatu.
   copy:
     src: "/var/lib/samba/private/krb5.conf"
     dest: "/etc/krb5.conf"
     mode: 0600
 
-- name: Stop smbd service.
+- name: smbd zerbitzua gelditu.
   service:
     name: smbd
     state: stopped
 
-- name: Stop nmbd service.
+- name: nmbd zerbitzua gelditu.
   service:
     name: nmbd
     state: stopped
 
-- name: Stop winbind service.
+- name: winbind zerbitzua gelditu.
   service:
     name: winbind
     state: stopped
 
-- name: Restart samba service.
+- name: samba zerbitzua berrabiarazi.
   service:
     name: samba
     state: restarted
