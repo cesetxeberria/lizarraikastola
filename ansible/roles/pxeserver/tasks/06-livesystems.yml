@@ -12,18 +12,6 @@
 #whois erabiltzaileen pasahitz enkriptatuak sortzeko erabiliko dugu
 #zstd ubunturen azken bertsioetan derrigorrezkoa da, apt erabiltzeko
 
-- name: customubuntu karpeta sortu.
-  file:
-    path: "{{ tftp_root }}/livecds/customubuntu"
-    state: directory
-    mode: 0755
-
-- name: customdebian karpeta sortu.
-  file:
-    path: "{{ tftp_root }}/livecds/customdebian"
-    state: directory
-    mode: 0755
-
 #Ubunturen bertsio berriek gutsy erabiltzen dute defektuz. Beraz, estekak eskuz sortu ditzakegu.
 #http://changelogs.ubuntu.com/changelogs/pool/main/d/debootstrap/debootstrap_1.0.128+nmu2ubuntu4/changelog
 - name: ubuntu lunar eta ubuntu noble-rentzat estekak sortu.
