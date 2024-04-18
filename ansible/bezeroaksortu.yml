@@ -15,24 +15,24 @@
   vars:
     ansible_host: "{{ inventory_hostname }}/live/squashfs-root"
   tasks:
-    - include_tasks: prepare.yml
+    - include_tasks: prestatu.yml
     - include_role:
         name: installer
     - include_role:
         name: minimal
     - include_role:
         name: sambaclient
-    - include_tasks: exit.yml
+    - include_tasks: atera.yml
 
 - hosts: desktops
   connection: chroot
   vars:
     ansible_host: "{{ inventory_hostname }}/live/squashfs-root"
   tasks:
-    - include_tasks: prepare.yml
+    - include_tasks: prestatu.yml
     - include_role:
         name: desktop
-    - include_tasks: exit.yml
+    - include_tasks: atera.yml
 
 - hosts: all
   connection: local
