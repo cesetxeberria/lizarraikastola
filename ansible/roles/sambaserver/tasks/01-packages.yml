@@ -1,4 +1,4 @@
-#This task installs samba and its dependencies
+#Ataza honek samba eta bere dependentziak instalatzen ditu
 ---
 - name: Install dependencies.
   apt:

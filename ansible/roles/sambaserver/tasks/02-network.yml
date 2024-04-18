@@ -1,29 +1,29 @@
-#this task configures the dns server
+#Ataza honek samba zerbitzariaren DNS-ak konfiguratzen ditu
 ---
-- name: Set hostname
+- name: Zerbitzariari izena jarri.
   hostname:
     name: DC1
 
-- name: Ensure resolv.conf is not immutable.
+- name: resolv.conf fitxategia aldatu daitekela ziurtatu.
   file:
     path: /etc/resolv.conf
     attr: -i
 
-- name: Remove original resolv.conf.
+- name: Aurreko resolv.conf fitxategia ezabatu.
   file:
     path="/etc/resolv.conf"
     state=absent
 
-- name: Create new resolv.conf.
+- name: resolv.conf fitxategi berria sortu.
   blockinfile:
     dest: "/etc/resolv.conf"
     create: "true"
     block: |
-     domain mydomain.org
-     search mydomain.org
+     domain {{ full_domain_name }}
+     search {{ full_domain_name }}
      nameserver 127.0.0.1
 
-- name: Ensure resolv.conf is immutable.
+- name: resolv.conf fitxategia automatikoki ez dela aldatuko ziurtatu.
   file:
     path: /etc/resolv.conf
     attr: +i
