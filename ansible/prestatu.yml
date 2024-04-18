@@ -42,6 +42,6 @@
     ansible_architecture: i386
   when: arch == 'i386'
 
-- name: "apt-get update" exekutatu
+- name: "'apt-get update' exekutatu"
   apt:
     update_cache: yes
