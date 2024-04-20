@@ -6,17 +6,11 @@ menu
 item --gap -- ---------------- iPXE boot menu ----------------
 item gela64                  Gela 64 bit
 item gela32                  Gela 32 bit
-item portatila64             Portatila 64 bit
-item portatila32             Portatila 32 bit
-item portatiltxikia64        Portatil txikia 64 bit
-item portatiltxikia32        Portatil txikia 32 bit
 item zerbitzaria64           Zerbitzaria 64 bit
 item zerbitzaria32           Zerbitzaria 32 bit
-item debianinstall64         Debian Bullseye installer amd64
-item debianinstall642        Debian Bullseye installer amd64 firmware
-item debianinstall32         Debian Bullseye installer i386
-item debianinstall322        Debian Bullseye installer i386 firmware
-item winpe                   Windows PE
+item debianinstall64         Debian instalatzailea amd64
+item debianinstall32         Debian instalatzailea i386
+item winpe                   Windows PE wimboot
 item local                   Local disk
 item shell                   ipxe shell
 item exit                    exit
@@ -37,34 +31,6 @@ goto MENU
 kernel /livecds/gela32/vmlinuz
 initrd /livecds/gela32/initrd.img
 imgargs vmlinuz initrd=initrd.img panic=10 ro boot=live root=/dev/nfs nfsroot={{ ansible_default_ipv4.address }}:{{ tftp_root }}/livecds/gela32 ksdevice=bootif BOOTIF=${netX/mac} swap mitigations=off
-boot ||
-goto MENU
-
-:portatila64
-kernel /livecds/portatila/vmlinuz
-initrd /livecds/portatila/initrd.img
-imgargs vmlinuz initrd=initrd.img panic=10 ro boot=live root=/dev/nfs nfsroot={{ ansible_default_ipv4.address }}:{{ tftp_root }}/livecds/portatila ksdevice=bootif BOOTIF=${netX/mac} swap mitigations=off
-boot ||
-goto MENU
-
-:portatila32
-kernel /livecds/portatila32/vmlinuz
-initrd /livecds/portatila32/initrd.img
-imgargs vmlinuz initrd=initrd.img panic=10 ro boot=live root=/dev/nfs nfsroot={{ ansible_default_ipv4.address }}:{{ tftp_root }}/livecds/portatila32 ksdevice=bootif BOOTIF=${netX/mac} swap mitigations=off
-boot ||
-goto MENU
-
-:portatiltxikia64
-kernel /livecds/portatiltxikia/vmlinuz
-initrd /livecds/portatiltxikia/initrd.img
-imgargs vmlinuz initrd=initrd.img panic=10 ro boot=live root=/dev/nfs nfsroot={{ ansible_default_ipv4.address }}:{{ tftp_root }}/livecds/portatiltxikia ksdevice=bootif BOOTIF=${netX/mac} swap mitigations=off
-boot ||
-goto MENU
-
-:portatiltxikia32
-kernel /livecds/portatiltxikia32/vmlinuz
-initrd /livecds/portatiltxikia32/initrd.img
-imgargs vmlinuz initrd=initrd.img panic=10 ro boot=live root=/dev/nfs nfsroot={{ ansible_default_ipv4.address }}:{{ tftp_root }}/livecds/portatiltxikia32 ksdevice=bootif BOOTIF=${netX/mac} swap mitigations=off
 boot ||
 goto MENU
 
@@ -89,24 +55,10 @@ imgargs linux initrd=initrd.gz vga=788
 boot ||
 goto MENU
 
-:debianinstall642
-kernel /installers/debian/amd64/linux
-initrd /installers/debian/amd64/initrdfirm.gz
-imgargs linux initrd=initrdfirm.gz vga=788
-boot ||
-goto MENU
-
 :debianinstall32
 kernel /installers/debian/i386/linux
 initrd /installers/debian/i386/initrd.gz
 imgargs linux initrd=initrd.gz vga=788
-boot ||
-goto MENU
-
-:debianinstall322
-kernel /installers/debian/i386/linux
-initrd /installers/debian/i386/initrdfirm.gz
-imgargs linux initrd=initrdfirm.gz vga=788
 boot ||
 goto MENU
 

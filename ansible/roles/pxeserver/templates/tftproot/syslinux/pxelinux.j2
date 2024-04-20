@@ -17,34 +17,6 @@ label Gela32
  append panic=10 ro boot=live root=/dev/nfs nfsroot={{ ansible_default_ipv4.address }}:{{ tftp_root }}/livecds/gela32 swap mitigations=off
  ipappend 2 
 
-label Portatila64
- menu clear
- kernel tftp/livecds/portatila/vmlinuz
- initrd tftp/livecds/portatila/initrd.img
- append panic=10 ro boot=live root=/dev/nfs nfsroot={{ ansible_default_ipv4.address }}:{{ tftp_root }}/livecds/portatila swap mitigations=off
- ipappend 2 
-
-label Portatila32
- menu clear
- kernel tftp/livecds/portatila32/vmlinuz
- initrd tftp/livecds/portatila32/initrd.img
- append panic=10 ro boot=live root=/dev/nfs nfsroot={{ ansible_default_ipv4.address }}:{{ tftp_root }}/livecds/portatila32 swap mitigations=off
- ipappend 2 
-
-label Portatiltxikia64
- menu clear
- kernel tftp/livecds/portatiltxikia/vmlinuz
- initrd tftp/livecds/portatiltxikia/initrd.img
- append panic=10 ro boot=live root=/dev/nfs nfsroot={{ ansible_default_ipv4.address }}:{{ tftp_root }}/livecds/portatiltxikia swap mitigations=off
- ipappend 2 
-
-label Portatiltxikia32
- menu clear
- kernel tftp/livecds/portatiltxikia32/vmlinuz
- initrd tftp/livecds/portatiltxikia32/initrd.img
- append panic=10 ro boot=live root=/dev/nfs nfsroot={{ ansible_default_ipv4.address }}:{{ tftp_root }}/livecds/portatiltxikia32 swap mitigations=off
- ipappend 2 
-
 label Zerbitzaria64
  menu clear
  kernel tftp/livecds/zerbitzaria/vmlinuz
@@ -59,38 +31,26 @@ label Zerbitzaria32
  append panic=10 ro boot=live root=/dev/nfs nfsroot={{ ansible_default_ipv4.address }}:{{ tftp_root }}/livecds/zerbitzaria32 swap mitigations=off
  ipappend 2 
 
-label Bullseye installer (amd64)
+label Debian instalatzailea (amd64)
  menu clear
  kernel tftp/installers/debian/amd64/linux
  initrd tftp/installers/debian/amd64/initrd.gz
  append vga=788 --- quiet
 
-label Bullseye installer (amd64) firmware
- menu clear
- kernel tftp/installers/debian/amd64/linux
- initrd tftp/installers/debian/amd64/initrdfirm.gz
- append vga=788 --- quiet
-
-label Bullseye installer (i386)
+label Debian instalatzailea (i386)
  menu clear
  kernel tftp/installers/debian/i386/linux
  initrd tftp/installers/debian/i386/initrd.gz
  append vga=788 --- quiet
 
-label Bullseye installer (i386) firmware
- menu clear
- kernel tftp/installers/debian/i386/linux
- initrd tftp/installers/debian/i386/initrdfirm.gz
- append vga=788 --- quiet
+label Windows PE wimboot
+ com32 linux.c32
+ append tftp/windows/wimboot initrdfile=tftp/windows/bcd,tftp/windows/boot.sdi,tftp/windows/boot.wim
 
-label WindowsPE
+label Windows PE memdisk
  kernel tftp/windows/memdisk  
  initrd tftp/windows/winpe.img    
  append raw
-
-LABEL WimbootPE
- com32 linux.c32
- append tftp/windows/wimboot initrdfile=tftp/windows/bcd,tftp/windows/boot.sdi,tftp/windows/boot.wim
 
 label Localboot
  localboot 0
