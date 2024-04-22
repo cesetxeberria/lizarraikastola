@@ -7,6 +7,7 @@
   vars:
     packages:
     - xfce4
+    - xfce4-terminal
     - gnome-themes-extra
 
 - name: desktop-base eta light-locker paketeak kendu.
@@ -24,3 +25,9 @@
     regexp: "user-session=ukui"
     line: "user-session=xfce"
     backrefs: yes
+
+- name: xfc4-terminal lehenetsi. Ubuntu.
+  alternatives:
+    name: x-terminal-emulator
+    path: /usr/bin/xfce4-terminal.wrapper
+  when: ansible_distribution == 'Ubuntu'
