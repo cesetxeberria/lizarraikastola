@@ -1,0 +1,6 @@
+#Ataza honek mahaigaina instalatu eta konfiguratzen du
+#xfce eta lightdm erabiltzen ditugu
+---
+  - include_tasks: 01-xorg_lightdm.yml
+
+  - include_tasks: 02-xfce.yml

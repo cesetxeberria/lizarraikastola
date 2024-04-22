@@ -1,0 +1,21 @@
+#Ataza honek xorg zerbitzari grafikoa instalatzen du.
+#Gainera lightdm kudeatzailea instalatzen du, ukui itxurarekin.
+---
+- name: Xorg, lightdm eta ukui instalatu.
+  apt:
+    name: "{{ packages }}"
+    install_recommends: no
+  vars:
+    packages:
+    - xorg
+    - lightdm
+    - ukui-greeter
+
+- name: Erabiltzaile zerrenda ezkutatu.
+  blockinfile:
+    dest: "/usr/share/lightdm/lightdm.conf.d/50-hide-users.conf"
+    create: "true"
+    block: |
+     #Hide users list by default, we don't want to expose them
+     [Seat:*]
+     greeter-hide-users=true

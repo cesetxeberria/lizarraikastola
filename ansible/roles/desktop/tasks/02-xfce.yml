@@ -1,0 +1,26 @@
+#Ataza honek xfce mahaigaina instalatzen du. 
+#Ukui ere konfiguratzen du, defektuz xfce abiarazteko.
+---
+- name: xfce eta adwaita instalatu.
+  apt:
+    name: "{{ packages }}"
+  vars:
+    packages:
+    - xfce4
+    - gnome-themes-extra
+
+- name: desktop-base eta light-locker paketeak kendu.
+  apt:
+    name: "{{ packages }}"
+    state: absent
+  vars:
+    packages:
+    - desktop-base
+    - light-locker
+
+- name: Defektuz xfce idazmaia abiarazteko ukui konfiguratu.
+  lineinfile:
+    dest: /usr/share/lightdm/lightdm.conf.d/95-ukui-greeter.conf
+    regexp: "user-session=ukui"
+    line: "user-session=xfce"
+    backrefs: yes
