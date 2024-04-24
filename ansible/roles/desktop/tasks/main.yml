@@ -3,4 +3,6 @@
 ---
   - include_tasks: 01-xorg_lightdm.yml
 
-  - include_tasks: 02-xfce.yml
+  - include_tasks: 02-locales.yml
+
+  - include_tasks: 03-xfce.yml
