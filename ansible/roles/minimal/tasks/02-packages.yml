@@ -36,3 +36,4 @@
     - inxi
     - ntfs-3g
     - cifs-utils
+    - util-linux-locales
