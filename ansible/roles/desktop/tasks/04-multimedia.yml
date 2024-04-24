@@ -1,0 +1,12 @@
+#Ataza honek multimedia programak instalatzen ditu: bideoa, irudiak eta audioa.
+#gthumb irudiak inprimatzeko erabiltzen dugu.
+---
+- name: Irudiak ikusteko programak instalatu.
+  apt:
+    name: "{{ packages }}"
+  vars:
+    packages:
+    - qimgv
+    - lximage-qt
+    - lximage-qt-l10n
+    - webp-pixbuf-loader
