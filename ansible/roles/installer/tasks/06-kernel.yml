@@ -13,9 +13,5 @@
     - ansible_architecture == 'x86_64'
 
 - name: 64 biteko kernela instalatu. Ubuntu.
-  apt:
-    name: "{{ packages }}"
-  vars:
-    packages:
-    - linux-image-generic
+  apt: name=linux-image-generic
   when: ansible_distribution == 'Ubuntu'
