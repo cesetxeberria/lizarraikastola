@@ -1,0 +1,16 @@
+#Ataza honek euskera eta gaztelaniako lokalak instalatzen ditu.
+---
+#firefox-esr-l10n-eu | firefox-l10n-eu, libreoffice-l10n-eu, libreoffice-help-eu, hunspell-eu-es falta dira
+- name: Euskera eta gaztelerako zuzentzaileak instalatu.
+  apt:
+    name: "{{ packages }}"
+  vars:
+    packages:
+    - aspell
+    - aspell-eu
+    - aspell-es
+    - hunspell
+    - hunspell-eu
+    - hunspell-es
+    - spellutils
+    - aspell-doc
