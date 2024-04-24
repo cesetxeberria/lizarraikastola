@@ -15,7 +15,6 @@
     name: "{{ packages }}"
   vars:
     packages:
-    - linux-image-generic
     - apparmor
     - bash-completion
     - bind9-dnsutils
