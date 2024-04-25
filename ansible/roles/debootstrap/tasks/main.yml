@@ -43,12 +43,16 @@
       - squashfs_root_dir.stat.exists == False
 
   - name: Sortu bezero berri bat debootstrap erabiliz.
-    command: /usr/sbin/debootstrap
-             --arch={{ arch }}
-             --include={{ include_packages }}
-             --components={{ compo }}
-             --merged-usr
-             {{ suite }} {{ inventory_hostname }}/live/squashfs-root {{ repo }}
+    command:
+      argv:
+        - /usr/sbin/debootstrap
+        - "--arch={{ arch }}"
+        - "--include={{ include_packages }}"
+        - "--components={{ compo }}"
+        - "--merged-usr"
+        - "{{ suite }}"
+        - "{{ inventory_hostname }}/live/squashfs-root"
+        - "{{ repo }}"
     when:
       - filesystem_file.stat.exists == False
       - squashfs_root_dir.stat.exists == False
