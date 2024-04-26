@@ -1,5 +1,4 @@
 #debian sistema batetan instalatu beharreko programak eta repositorioak
 ---
-include_packages: openssh-server,python-is-python3,python3-apt,locales,keyboard-configuration,console-setup
 repo: http://deb.debian.org/debian
 compo: main

@@ -1,5 +1,4 @@
 #ubuntu sistema batetan instalatu beharreko programak eta repositorioak
 ---
-include_packages: openssh-server,python3-apt,python-is-python3
 repo: http://es.archive.ubuntu.com/ubuntu
 compo: main,universe
