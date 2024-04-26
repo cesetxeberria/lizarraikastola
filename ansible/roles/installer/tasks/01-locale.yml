@@ -1,6 +1,11 @@
 #Ataza honetan sistema euskeraz jarriko dugu
 ---
-- name: Instalatu euskera eta gaztelaniako lokalak. Ubuntu.
+- name: Lokalak instalatu. Debian.
+  apt:
+    name: "locales"
+  when: ansible_distribution == 'Debian'
+
+- name: Lokalak instalatu. Ubuntu.
   apt:
     name: "{{ packages }}"
   vars:

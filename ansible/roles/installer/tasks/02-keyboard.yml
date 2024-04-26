@@ -1,5 +1,14 @@
 #Ataza honetan teklatu espainiarra konfiguratzen dugu. Karaktereentzako UTF-8 sistema jartzen dugu.
 ---
+- name: Keyboard-configuration eta console-setup instalatu. Debian.
+  apt:
+    name: "{{ packages }}"
+  vars:
+    packages:
+    - keyboard-configuration
+    - console-setup
+  when: ansible_distribution == 'Debian'
+
 - name: Aldatu /etc/default/keyboard teklatua espainiarra dela esateko.
   lineinfile:
     dest: /etc/default/keyboard

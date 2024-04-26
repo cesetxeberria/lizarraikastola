@@ -47,7 +47,9 @@
       argv:
         - /usr/sbin/debootstrap
         - "--arch={{ arch }}"
-        - "--include={{ include_packages }}"
+#        - "--include={{ include_packages }}"
+        - "--include=python-is-python3"
+#        - "--include=openssh-server,python-is-python3,python3-apt"
         - "--components={{ compo }}"
         - "--merged-usr"
         - "{{ suite }}"
