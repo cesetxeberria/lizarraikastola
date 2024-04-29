@@ -1,0 +1,46 @@
+#Ataza honek pdfak manipulatzeko ghostscrip instalatuko du.
+#Thunarren bi aukera gehituko ditugu pdf-ak batu eta bereizteko.
+---
+- name: PDF-ak manipulatzeko programak instalatu.
+  apt:
+    name: "{{ packages }}"
+  vars:
+    packages:
+    - ghostscript
+
+- name: Sistema disko gogorrean instalatzeko scriptak kopiatu.
+  copy:
+    src: "{{ role_path }}/files/usr/local/bin/{{ item }}"
+    dest: "/usr/local/bin/{{ item }}"
+    mode: 0755
+  with_items:
+     - pdfakbereiztu
+     - pdfakbatu
+
+- name: Thunar custom actions. PDF-ak batu eta bereizteko scriptak.
+  blockinfile:
+    path: /etc/xdg/Thunar/uca.xml
+    insertbefore: '</actions>'
+    block: |
+      <action>
+        <icon></icon>
+        <patterns>*.pdf;*.PDF</patterns>
+        <name>Pdf-ak bereiztu</name>
+        <command>/usr/local/bin/pdfakbereiztu %N</command>
+        <description></description>
+        <other-files/>
+      </action>
+      <action>
+        <icon></icon>
+        <patterns>*.pdf;*.PDF</patterns>
+        <name>Pdf-ak batu</name>
+        <command>/usr/local/bin/pdfakbatu %N</command>
+        <description></description>
+        <other-files/>
+      </action>
+
+- name: Thunar custom actions garbitu. Ansiblek gehitutako testua kendu.
+  lineinfile:
+    dest: /etc/xdg/Thunar/uca.xml
+    state: absent
+    regexp: "ANSIBLE"
