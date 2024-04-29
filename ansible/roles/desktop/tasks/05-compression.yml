@@ -1,0 +1,17 @@
+#Ataza honek file-roller konfiguratzen du. Defektuz tar.gz erabiltzen du eta guk zip nahiago dugu.
+---
+- name: Begiratu file-roller konfiguratuta dagoen.
+  stat:
+    path: "/etc/dconf/db/local.d/00-file-roller"
+  register: fileroller
+
+- name: File-roller konfiguratu. Defektuz zip erabili nahi dugu.
+  copy:
+    src: "{{ role_path }}/files/etc/dconf/db/local.d/00-file-roller"
+    dest: "/etc/dconf/db/local.d/00-file-roller"
+    mode: 0644
+  when: fileroller.stat.exists == False
+
+- name: Dconf eguneratu
+  command: "dconf update"
+  when: fileroller.stat.exists == False
