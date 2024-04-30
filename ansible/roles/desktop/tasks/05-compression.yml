@@ -2,8 +2,12 @@
 ---
 - name: file-roller instalatu.
   apt:
-    name: "file-roller"
+    name: "{{ packages }}"
     install_recommends: no
+  vars:
+    packages:
+    - file-roller
+    - thunar-archive-plugin
 
 - name: Ziurtatu dconf-cli instalatuta dagoela.
   apt:
