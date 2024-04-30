@@ -5,10 +5,20 @@
     name: "file-roller"
     install_recommends: no
 
+- name: Ziurtatu dconf-cli instalatuta dagoela.
+  apt:
+    name: "dconf-cli"
+    install_recommends: no
+
 - name: Begiratu file-roller konfiguratuta dagoen.
   stat:
     path: "/etc/dconf/db/local.d/00-file-roller"
   register: fileroller
+
+- name: file-roller konfiguratzeko karpeta sortu.
+  file:
+    path: "/etc/dconf/db/local.d/00-file-roller"
+    state: directory
 
 - name: File-roller konfiguratu. Defektuz zip erabili nahi dugu.
   copy:
