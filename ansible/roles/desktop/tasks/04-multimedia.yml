@@ -20,6 +20,7 @@
     - smplayer
     - vlc
 
+#200 mega baino gehiago dira, merezi du gaur egun?
 - name: DVD-ak ikusteko liburutegiak instalatu.
   apt:
     name: "libdvd-pkg"
