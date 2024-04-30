@@ -6,3 +6,9 @@
   - include_tasks: 02-locales.yml
 
   - include_tasks: 03-xfce.yml
+
+  - include_tasks: 04-multimedia.yml
+
+  - include_tasks: 05-compression.yml
+
+  - include_tasks: 06-pdf.yml
