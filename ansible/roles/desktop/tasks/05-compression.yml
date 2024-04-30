@@ -1,5 +1,10 @@
 #Ataza honek file-roller konfiguratzen du. Defektuz tar.gz erabiltzen du eta guk zip nahiago dugu.
 ---
+- name: file-roller instalatu.
+  apt:
+    name: "file-roller"
+    install_recommends: no
+
 - name: Begiratu file-roller konfiguratuta dagoen.
   stat:
     path: "/etc/dconf/db/local.d/00-file-roller"
