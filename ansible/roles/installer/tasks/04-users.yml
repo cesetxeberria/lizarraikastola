@@ -15,7 +15,7 @@
          password: $6$yfBEPbX/HQai$gc0qCZdrLUiSlw21LbRrfBsDtZ9cpjBisV.b.HCiaN/17x0NEnYNvF8JGsEYaOVHiiYUOAgnAc9wMQkrQaeOu/
          shell: /bin/bash
          createhome: no
-         groups: cdrom,floppy,audio,dip,video,plugdev,netdev,sudo
+         groups: cdrom,floppy,audio,dip,video,plugdev,netdev,sudo,render
       register: user
       when: ansible_distribution == 'Debian'
 
@@ -25,7 +25,7 @@
          password: $6$yfBEPbX/HQai$gc0qCZdrLUiSlw21LbRrfBsDtZ9cpjBisV.b.HCiaN/17x0NEnYNvF8JGsEYaOVHiiYUOAgnAc9wMQkrQaeOu/
          shell: /bin/bash
          createhome: no
-         groups: adm,cdrom,dip,plugdev,sudo
+         groups: adm,cdrom,dip,plugdev,sudo,render
       register: user
       when: ansible_distribution == 'Ubuntu'
 
