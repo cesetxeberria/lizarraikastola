@@ -1,0 +1,4 @@
+#Ataza honek wayland mahaigaina instalatu eta konfiguratzen du
+#wayfire erabiltzen dugu
+---
+  - include_tasks: 01-wayfire.yml

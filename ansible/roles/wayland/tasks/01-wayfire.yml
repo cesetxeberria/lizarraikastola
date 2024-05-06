@@ -1,0 +1,11 @@
+#Ataza honek xorg zerbitzari grafikoa instalatzen du.
+#Gainera lightdm kudeatzailea instalatzen du, ukui itxurarekin.
+---
+- name: wayfire instalatu.
+  apt:
+    name: "{{ packages }}"
+    install_recommends: no
+  vars:
+    packages:
+    - wayfire
+    - libgl1-mesa-dri
