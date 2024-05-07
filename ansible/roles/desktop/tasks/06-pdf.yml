@@ -20,6 +20,19 @@
      - pdfakbereiztu
      - pdfakbatu
 
+- name: Thunar actions aldatu behar den ikusi.
+  lineinfile:
+    path: /etc/xdg/Thunar/uca.xml
+    line: '^(.*)pdfakbereiztu(.*)$'
+    state: present
+  check_mode: yes
+  register: presence
+#  failed_when: presence is changed 
+
+- name: Dagoeneko aldatuta dago.
+  debug: msg="Actions dagoeneko aldatuta dago."
+  when: presence is changed
+
 - name: Thunar custom actions. PDF-ak batu eta bereizteko scriptak.
   blockinfile:
     path: /etc/xdg/Thunar/uca.xml
@@ -41,6 +54,7 @@
         <description></description>
         <other-files/>
       </action>
+  when: presence is not changed
 
 - name: Thunar custom actions garbitu. Ansiblek gehitutako testua kendu.
   lineinfile:
