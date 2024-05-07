@@ -30,11 +30,17 @@
      - python3-pyqt5.qtwebengine
      - python3-pyqt5.qtsvg
 
+- name: Begiratu pylote instalatuta dagoen.
+  stat:
+    path: /opt/pylote/pylote.pyw
+  register: pylote
+
 - name: Pylote programa deskargatu eta erauzi.
   unarchive:
     src: http://pascal.peter.free.fr/wikiuploads/pylote.tar.gz
     dest: /opt
     remote_src: yes
+  when: pylote.stat.exists == False
 
 - name: Pylote programaren lasterbidea kopiatu.
   copy:
