@@ -9,3 +9,4 @@
     packages:
     - wayfire
     - libgl1-mesa-dri
+    - wlogout
