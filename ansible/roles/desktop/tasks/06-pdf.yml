@@ -11,7 +11,7 @@
     - pdftk
     - texlive-extra-utils
 
-- name: Sistema disko gogorrean instalatzeko scriptak kopiatu.
+- name: PDF-ak bereiztu eta batzeko script-ak kopiatu.
   copy:
     src: "{{ role_path }}/files/usr/local/bin/{{ item }}"
     dest: "/usr/local/bin/{{ item }}"
