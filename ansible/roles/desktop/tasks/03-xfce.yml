@@ -9,6 +9,7 @@
     - xfce4
     - xfce4-terminal
     - gnome-themes-extra
+    - mousepad
 
 - name: Automatikokin instalatutako desktop-base eta light-locker paketeak kendu.
   apt:
