@@ -50,3 +50,7 @@
     dest: /usr/local/bin/yt-dlp
     mode: 0755
   when: ytdlp.stat.exists == False
+
+- name: yt-dlp azken bertsioan dagoela ziurtatu.
+  command: /usr/local/bin/yt-dlp -U
+  when: ytdlp.stat.exists == True
