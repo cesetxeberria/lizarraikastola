@@ -32,3 +32,4 @@
 
 - name: Sistemaren defektuzko hizkuntza euskera jarri. Euskerazko itzulpena ez duten programetan gaztelera erabili.
   command: /usr/sbin/update-locale LANG=eu_ES.UTF-8 LANGUAGE=eu:es
+  when: (spanish is changed) or (basque is changed)
