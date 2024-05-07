@@ -1,0 +1,22 @@
+#Ataza honek arbel digitalarekin erabiltzeko programak instalatzen ditu
+---
+- name: Xournal instalatu. Bertsio zaharra eta berria.
+  apt:
+    name: "{{ packages }}"
+    install_recommends: no
+  vars:
+    packages:
+    - xournal
+    - xournalpp
+
+- name: xournal karpeta sortu skel barruan.
+  file:
+    path: /etc/skel/.xournal
+    state: directory
+    mode: 0755
+
+- name: xournal konfiguratu.
+  copy:
+    src: "{{ role_path }}/files/etc/skel/.xournal/config"
+    dest: /etc/skel/.xournal/config
+    mode: 0644
