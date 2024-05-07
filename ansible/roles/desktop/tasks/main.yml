@@ -14,3 +14,11 @@
   - include_tasks: 06-pdf.yml
 
   - include_tasks: 07-arbela.yml
+
+  - include_tasks: 08-firefox.yml
+
+  - include_tasks: 09-chrome.yml
+    when: ansible_architecture == 'x86_64'
+
+  - include_tasks: 09-chromium.yml
+    when: ansible_architecture == 'i386'
