@@ -12,3 +12,5 @@
   - include_tasks: 05-compression.yml
 
   - include_tasks: 06-pdf.yml
+
+  - include_tasks: 07-arbela.yml
