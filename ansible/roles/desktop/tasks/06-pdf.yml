@@ -1,6 +1,14 @@
 #Ataza honek pdfak manipulatzeko ghostscrip instalatuko du.
 #Thunarren bi aukera gehituko ditugu pdf-ak batu eta bereizteko.
 ---
+- name: PDF-ak ikusteko
+  apt:
+    name: "{{ packages }}"
+    install_recommends: no
+  vars:
+    packages:
+    - atril
+
 - name: PDF-ak manipulatzeko programak instalatu.
   apt:
     name: "{{ packages }}"
