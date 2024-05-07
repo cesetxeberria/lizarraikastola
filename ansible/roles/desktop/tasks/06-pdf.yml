@@ -1,7 +1,7 @@
 #Ataza honek pdfak manipulatzeko ghostscrip instalatuko du.
 #Thunarren bi aukera gehituko ditugu pdf-ak batu eta bereizteko.
 ---
-- name: PDF-ak ikusteko
+- name: PDF-ak ikusteko programa instalatu.
   apt:
     name: "{{ packages }}"
     install_recommends: no
@@ -34,12 +34,11 @@
     line: '^(.*)pdfakbereiztu(.*)$'
     state: present
   check_mode: yes
-  register: presence
-#  failed_when: presence is changed 
+  register: uca
 
 - name: Dagoeneko aldatuta dago.
-  debug: msg="Actions dagoeneko aldatuta dago."
-  when: presence is changed
+  debug: msg="uca dagoeneko aldatuta dago."
+  when: uca is changed
 
 - name: Thunar custom actions. PDF-ak batu eta bereizteko scriptak.
   blockinfile:
@@ -62,7 +61,7 @@
         <description></description>
         <other-files/>
       </action>
-  when: presence is not changed
+  when: uca is not changed
 
 - name: Thunar custom actions garbitu. Ansiblek gehitutako testua kendu.
   lineinfile:
