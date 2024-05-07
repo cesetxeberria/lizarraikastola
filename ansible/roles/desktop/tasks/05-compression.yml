@@ -21,8 +21,9 @@
 
 - name: file-roller konfiguratzeko karpeta sortu.
   file:
-    path: "/etc/dconf/db/local.d/00-file-roller"
+    path: "/etc/dconf/db/local.d"
     state: directory
+  when: fileroller.stat.exists == False
 
 - name: File-roller konfiguratu. Defektuz zip erabili nahi dugu.
   copy:
