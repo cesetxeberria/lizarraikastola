@@ -20,3 +20,24 @@
     src: "{{ role_path }}/files/etc/skel/.xournal/config"
     dest: /etc/skel/.xournal/config
     mode: 0644
+
+  - name: Pylote programaren dependentziak instalatu.
+    apt:
+      name: "{{ packages }}"
+    vars:
+      packages:
+       - python3-pyqt5
+       - python3-pyqt5.qtwebengine
+       - python3-pyqt5.qtsvg
+
+  - name: Pylote programa deskargatu eta erauzi.
+    unarchive:
+      src: http://pascal.peter.free.fr/wikiuploads/pylote.tar.gz
+      dest: /opt
+      remote_src: yes
+
+  - name: Pylote programaren lasterbidea kopiatu.
+    copy:
+      src: "{{ role_path }}/files/usr/share/applications/pylote.desktop"
+      dest: "/usr/share/applications/pylote.desktop"
+      mode: 0644
