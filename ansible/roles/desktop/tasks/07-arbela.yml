@@ -41,4 +41,3 @@
     src: "{{ role_path }}/files/usr/share/applications/pylote.desktop"
     dest: "/usr/share/applications/pylote.desktop"
     mode: 0644
-    remote_src: yes
