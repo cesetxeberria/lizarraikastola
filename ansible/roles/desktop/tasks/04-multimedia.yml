@@ -24,9 +24,11 @@
 - name: DVD-ak ikusteko liburutegiak instalatu.
   apt:
     name: "libdvd-pkg"
+  register: libdvd
 
-- name: Dpkg-reconfigure libdvd-pkg.
+- name: Instalazioa bukatzeko dpkg-reconfigure erabili.
   command: /usr/sbin/dpkg-reconfigure --frontend=noninteractive libdvd-pkg
+  when: libdvd is changed
 
 - name: Kendu youtube-dl eta yt-dlp bertsio zaharra. SMPlayer-ekin instalatu da.
   apt:
@@ -37,8 +39,14 @@
     - youtube-dl
     - yt-dlp
 
-- name: Instalatu yt-dlp.
+- name: Begiratu yt-dlp bertsio berria instalatuta dagoen.
+  stat:
+    path: /usr/local/bin/yt-dlp
+  register: ytdlp
+
+- name: Instalatu yt-dlp bertsio berria.
   get_url:
     url: https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp
     dest: /usr/local/bin/yt-dlp
     mode: 0755
+  when: ytdlp.stat.exists == False
