@@ -19,7 +19,7 @@
     path: "/etc/dconf/db/local.d/00-file-roller"
   register: fileroller
 
-- name: file-roller konfiguratzeko karpeta sortu.
+- name: File-roller konfiguratzeko karpeta sortu.
   file:
     path: "/etc/dconf/db/local.d"
     state: directory
@@ -32,6 +32,6 @@
     mode: 0644
   when: fileroller.stat.exists == False
 
-- name: Dconf eguneratu
+- name: Dconf eguneratu.
   command: "dconf update"
   when: fileroller.stat.exists == False
