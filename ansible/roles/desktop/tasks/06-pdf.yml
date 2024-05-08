@@ -29,11 +29,11 @@
      - pdfakbatu
 
 - name: Thunar actions aldatu behar den ikusi.
-  lineinfile:
+  replace:
     path: /etc/xdg/Thunar/uca.xml
-    line: '^(.*)pdfakbereiztu(.*)$'
-    state: present
-  check_mode: yes
+    regexp: "^(.*)pdfakbereiztu(.*)$"
+    replace: "hau proba bat da"
+  check_mode: yes #aldaketa egin behar den simulatzen du, ez du benetan egiten
   register: uca
 
 - name: Dagoeneko aldatuta dago.
@@ -62,9 +62,3 @@
         <other-files/>
       </action>
   when: uca is not changed
-
-- name: Thunar custom actions garbitu. Ansiblek gehitutako testua kendu.
-  lineinfile:
-    dest: /etc/xdg/Thunar/uca.xml
-    state: absent
-    regexp: "ANSIBLE"
