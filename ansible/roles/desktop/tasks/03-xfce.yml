@@ -11,7 +11,7 @@
     - gnome-themes-extra
     - mousepad
 
-- name: Automatikokin instalatutako desktop-base eta light-locker paketeak kendu.
+- name: Automatikoki instalatutako desktop-base eta light-locker paketeak kendu.
   apt:
     name: "{{ packages }}"
     state: absent
