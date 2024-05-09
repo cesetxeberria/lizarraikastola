@@ -54,11 +54,3 @@
 - name: yt-dlp azken bertsioan dagoela ziurtatu.
   command: /usr/local/bin/yt-dlp -U
   when: ytdlp.stat.exists == True
-
-- name: Audioa aktibatu.
-  blockinfile:
-    path: /etc/pulse/default.pa.d/unmute.pa
-    create: true
-    block: |
-      pactl set-sink-mute @DEFAULT_SINK@ 0
-      pactl set-sink-volume @DEFAULT_SINK@ 70%

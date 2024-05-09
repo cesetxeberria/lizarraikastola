@@ -14,6 +14,14 @@
     replace: "set bell-style none"
 # set bell-style visible?
 
+- name: Audioa aktibatu.
+  blockinfile:
+    path: /etc/pulse/default.pa.d/unmute.pa
+    create: true
+    block: |
+      pactl set-sink-mute @DEFAULT_SINK@ 0
+      pactl set-sink-volume @DEFAULT_SINK@ 70%
+
 - name: Script batzuk kopiatu.
   copy:
     src: "{{ role_path }}/files/usr/local/bin/{{ item }}"
