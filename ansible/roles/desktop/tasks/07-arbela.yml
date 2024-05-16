@@ -21,6 +21,18 @@
     dest: /etc/skel/.xournal/config
     mode: 0644
 
+- name: xournalpp karpeta sortu skel barruan.
+  file:
+    path: /etc/skel/.config/xournalpp
+    state: directory
+    mode: 0755
+
+- name: xournalpp konfiguratu.
+  copy:
+    src: "{{ role_path }}/files/etc/skel/.config/xournalpp/settings.xml"
+    dest: /etc/skel/.config/xournalpp/settings.xml
+    mode: 0644
+
 - name: Pylote programaren dependentziak instalatu.
   apt:
     name: "{{ packages }}"
