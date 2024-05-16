@@ -22,3 +22,5 @@
 
 #  - include_tasks: 09-chromium.yml
 #    when: ansible_architecture == 'i386'
+
+  - include_tasks: 10-geany.yml
