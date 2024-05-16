@@ -1,0 +1,26 @@
+#Ataza honek geany instalatu eta konfiguratzen du.
+---
+- name: Geany, luzapenak eta json formateatzailea instalatu.
+  apt:
+    name: "{{ packages }}"
+  vars:
+    packages:
+    - geany
+    - jq
+    - xmlindent
+    - geany-plugin-extrasel
+
+- name: Geanyren konfigurazio karpeta sortu.
+  file:
+    path: /etc/skel/.config/geany
+    state: directory
+    mode: 0755
+
+- name: JSON eta XML indexadoreak konfiguratu.
+  blockinfile:
+    path: /etc/skel/.config/geany/geany.conf
+    create: true
+    block: |
+      [geany]
+      custom_commands=jq;xmlindent;
+      custom_commands_labels=Json;XML;
