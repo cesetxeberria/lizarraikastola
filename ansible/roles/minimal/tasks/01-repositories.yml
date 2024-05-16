@@ -1,5 +1,15 @@
 #Ataza honek repositorioak konfiguratzen ditu. "var" karpetatik Debian edo Ubunturenak aukeratzen ditu.
 ---
+#- name: Google-ren repoa gehitu.
+#  deb822_repository:
+#    name: google-chrome
+#    types: deb
+#    uris: https://dl.google.com/linux/chrome/deb/
+#    suites: "{{ ansible_distribution_release }}"
+#    components: stable main
+#    architectures: amd64
+#    signed_by: https://dl.google.com/linux/linux_signing_key.pub
+
 - name: updates repoa gehitu.
   apt_repository:
     repo: "{{ item  }} {{ repo }} {{ ansible_distribution_release }}-updates {{ compo }}"
