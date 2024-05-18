@@ -1,0 +1,20 @@
+{
+  "browser": {
+     "show_home_button": true,
+     "has_seen_welcome_page" : true,
+     "check_default_browser" : false
+  },
+  "bookmark_bar": {
+     "show_on_all_tabs": true
+  },
+  "signin": {
+     "allowed": false,
+     "allowed_on_next_startup": false
+  },
+  "download": {
+     "open_pdf_in_system_reader" : true
+  }
+  "custom_handlers": {
+     "enabled" : false
+  }
+}
