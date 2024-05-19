@@ -35,11 +35,11 @@
     - google-chrome-stable
 
 #Script bat erabiltzen dugu irekitzerakoan aukerak gehituz.
-#- name: Abiarazteko aukerak gehitzen dituen script-a kopiatu.
-#  copy:
-#    src: "{{ role_path }}/files/usr/local/bin/chrome"
-#    dest: "/usr/local/bin/chrome"
-#    mode: 0755
+- name: Abiarazteko aukerak gehitzen dituen script-a kopiatu.
+  copy:
+    src: "{{ role_path }}/files/usr/local/bin/chrome"
+    dest: "/usr/local/bin/chrome"
+    mode: 0755
 
 - name: Politiken karpeta sortu.
   file:

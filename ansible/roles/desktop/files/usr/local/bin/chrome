@@ -1,0 +1,19 @@
+#!/bin/sh
+# A set of command line flags that we want to set by default.
+
+# Do not hide any extensions in the about:extensions dialog
+export CHROMIUM_FLAGS="$CHROMIUM_FLAGS --show-component-extension-options"
+
+# Don't display any warnings about not being the default browser
+export CHROMIUM_FLAGS="$CHROMIUM_FLAGS --no-default-browser-check"
+
+# Disable pinging
+export CHROMIUM_FLAGS="$CHROMIUM_FLAGS --disable-pings"
+
+# Don't show any IPH popup
+export CHROMIUM_FLAGS="$CHROMIUM_FLAGS --propagate-iph-for-testing"
+
+# Don't show first run dialog
+export CHROMIUM_FLAGS="$CHROMIUM_FLAGS --no-first-run"
+
+/opt/google/chrome/google-chrome $CHROMIUM_FLAGS
