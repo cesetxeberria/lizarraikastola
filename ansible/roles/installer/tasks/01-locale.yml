@@ -13,23 +13,24 @@
     - language-pack-es
     - language-pack-eu
   when: ansible_distribution == 'Ubuntu'
+  register: langpacks
 
-- name: Aktibatu gaztelaniako lokala.
-  locale_gen:
-    name: es_ES.UTF-8
-    state: present
-  register: spanish
-
-- name: Aktibatu euskerako lokala.
+- name: Aktibatu euskera lokala.
   locale_gen:
     name: eu_ES.UTF-8
     state: present
   register: basque
 
+- name: Aktibatu gaztelera lokala.
+  locale_gen:
+    name: es_ES.UTF-8
+    state: present
+  register: spanish
+
 - name: Aldaketak egon badira "dpkg-reconfigure" exekutatu konfigurazioa eguneratzeko.
   command: /usr/sbin/dpkg-reconfigure --frontend=noninteractive locales
-  when: (spanish is changed) or (basque is changed)
+  when: (langpacks is changed) or (basque is changed) or (spanish is changed)
 
 - name: Sistemaren defektuzko hizkuntza euskera jarri. Euskerazko itzulpena ez duten programetan gaztelera erabili.
   command: /usr/sbin/update-locale LANG=eu_ES.UTF-8 LANGUAGE=eu:es
-  when: (spanish is changed) or (basque is changed)
+  when: (langpacks is changed) or (basque is changed) or (spanish is changed)
