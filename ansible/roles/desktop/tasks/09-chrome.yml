@@ -11,7 +11,7 @@
 #    architectures: amd64
 #    signed_by: https://dl.google.com/linux/linux_signing_key.pub
 
-- name: Google-ren repoaren sinadura gehitu
+- name: Google-ren repoaren sinadura gehitu.
   ansible.builtin.apt_key:
     id: 4CCA1EAF950CEE4AB83976DCA040830F7FAC5991
     url: https://dl.google.com/linux/linux_signing_key.pub
@@ -40,6 +40,20 @@
     src: "{{ role_path }}/files/usr/local/bin/chrome"
     dest: "/usr/local/bin/chrome"
     mode: 0755
+
+- name: Chrome esteka sortu /usr/bin barruan.
+  file:
+    src: /usr/local/bin/chrome
+    dest: /usr/bin/google-chrome-stable
+    state: link
+
+- name: Eguneratzailea kendu.
+  file:
+    path: "{{ item }}"
+    state: absent
+  with_items:
+    - "/etc/cron.daily/google-chrome"
+    - "/opt/google/chrome/cron"
 
 - name: Politiken karpeta sortu.
   file:
