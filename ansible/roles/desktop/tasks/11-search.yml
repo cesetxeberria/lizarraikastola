@@ -1,0 +1,8 @@
+#Ataza honek bilatzaile bat instalatzen du.
+---
+- name: Catfish instalatu.
+  apt:
+    name: "{{ packages }}"
+  vars:
+    packages:
+    - catfish
