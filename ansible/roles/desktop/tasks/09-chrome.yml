@@ -47,6 +47,21 @@
     dest: /usr/bin/google-chrome-stable
     state: link
 
+- name: Gure desktop fitxategia sortu.
+  blockinfile:
+    dest: "/usr/share/applications/chrome.desktop"
+    create: "true"
+    block: |
+     [Desktop Entry]
+     Version=1.0
+     Name=Google Chrome
+     Exec=/usr/local/bin/chrome %U
+     StartupNotify=true
+     Terminal=false
+     Icon=google-chrome
+     Type=Application
+     NoDisplay=true 
+
 - name: Eguneratzailea kendu.
   file:
     path: "{{ item }}"
