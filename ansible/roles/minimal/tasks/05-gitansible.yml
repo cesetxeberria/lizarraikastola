@@ -1,0 +1,10 @@
+#Ataza git eta ansible instalatzen ditu.
+---
+- name: Git eta ansible instalatu.
+  apt:
+    name: "{{ packages }}"
+    install_recommends: no
+  vars:
+    packages:
+    - git
+    - ansible
