@@ -19,3 +19,9 @@
      #Hide users list by default, we don't want to expose them
      [Seat:*]
      greeter-hide-users=true
+
+- name: Mahaigaina bikoizteko script-a kopiatu.
+  copy:
+    src: "{{ role_path }}/files/usr/local/bin/bikoiztu"
+    dest: "/usr/local/bin/bikoiztu"
+    mode: 0755
