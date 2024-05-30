@@ -24,3 +24,7 @@
     when: ansible_architecture == 'i386'
 
   - include_tasks: 10-geany.yml
+
+  - include_tasks: 11-search.yml
+
+  - include_tasks: 12-java.yml
