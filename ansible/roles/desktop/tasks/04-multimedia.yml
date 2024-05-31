@@ -30,7 +30,7 @@
   command: /usr/sbin/dpkg-reconfigure --frontend=noninteractive libdvd-pkg
   when: libdvd is changed
 
-- name: Kendu youtube-dl eta yt-dlp bertsio zaharra. SMPlayer-ekin instalatu da. Debian.
+- name: Kendu youtube-dl eta yt-dlp bertsio zaharra. SMPlayer-ekin instalatu da.
   apt:
     name: "{{ packages }}"
     state: absent
@@ -38,25 +38,18 @@
     packages:
     - youtube-dl
     - yt-dlp
-  when: ansible_distribution == 'Debian'
 
-- name: Begiratu yt-dlp bertsio berria instalatuta dagoen. Debian.
+- name: Begiratu yt-dlp bertsio berria instalatuta dagoen.
   stat:
     path: /usr/local/bin/yt-dlp
   register: ytdlp
-  when: ansible_distribution == 'Debian'
 
-- name: Instalatu yt-dlp bertsio berria. Debian.
+- name: Instalatu yt-dlp bertsio berria.
   get_url:
     url: https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp
     dest: /usr/local/bin/yt-dlp
     mode: 0755
-  when:
-    - ansible_distribution == 'Debian'
-    - ytdlp.stat.exists == False
 
-- name: yt-dlp azken bertsioan dagoela ziurtatu. Debian.
+- name: yt-dlp azken bertsioan dagoela ziurtatu.
   command: /usr/local/bin/yt-dlp -U
-  when:
-    - ansible_distribution == 'Debian'
-    - ytdlp.stat.exists == True
+  when: ytdlp.stat.exists == True
