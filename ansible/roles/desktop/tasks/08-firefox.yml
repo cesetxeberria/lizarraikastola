@@ -36,13 +36,18 @@
 
 - name: Firefox esteka sortu /usr/bin barruan. Ubuntu.
   file:
-    src: /opt/firefox/firefox-bin
-    dest: "{{ links }}"
+    src: /opt/firefox/firefox
+    dest: /usr/bin/firefox
     state: link
-  vars:
-    links:
-    - /usr/bin/firefox
-    - /usr/bin/firefox-esr
+  when:
+    - ansible_distribution == 'Ubuntu'
+    - firefox.stat.exists == False
+
+- name: Firefox-esr esteka sortu /usr/bin barruan. Ubuntu.
+  file:
+    src: /opt/firefox/firefox
+    dest: /usr/bin/firefox-esr
+    state: link
   when:
     - ansible_distribution == 'Ubuntu'
     - firefox.stat.exists == False
@@ -64,14 +69,14 @@
 #    - ansible_distribution == 'Ubuntu'
 #    - firefox.stat.exists == False
 
-- name: Desktop fitxategia kopiatu. Ubuntu.
-  copy:
-    src: "{{ role_path }}/files/usr/share/applications/firefox-esr.desktop"
-    dest: "/usr/share/applications/firefox-esr.desktop"
-    mode: 0644
-  when:
-    - ansible_distribution == 'Ubuntu'
-    - firefox.stat.exists == False
+#- name: Desktop fitxategia kopiatu. Ubuntu.
+#  copy:
+#    src: "{{ role_path }}/files/usr/share/applications/firefox-esr.desktop"
+#    dest: "/usr/share/applications/firefox-esr.desktop"
+#    mode: 0644
+#  when:
+#    - ansible_distribution == 'Ubuntu'
+#    - firefox.stat.exists == False
 
 - name: Politikak gordetzeko karpeta sortu.
   file:
