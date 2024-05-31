@@ -36,7 +36,7 @@
 
 - name: Firefox esteka sortu /usr/bin barruan. Ubuntu.
   file:
-    src: /opt/firefox/firefox
+    src: /opt/firefox/firefox-bin
     dest: "{{ links }}"
     state: link
   vars:
