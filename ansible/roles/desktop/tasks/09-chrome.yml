@@ -98,3 +98,13 @@
     src: "{{ role_path }}/files/etc/chromium/master_preferences"
     dest: "/opt/google/chrome/initial_preferences"
     mode: 0644
+
+#https://bugs.launchpad.net/ubuntu/+source/apparmor/+bug/2065088
+- name: Apparmor profilak kargatu live inguruneetan.
+  lineinfile:
+    dest: /usr/lib/systemd/system/apparmor.service
+    regexp: "{{ item.old }}"
+    line: "{{ item.new }}"
+  with_items:
+     - { old: 'ConditionPathExists=!/rofs/etc/apparmor.d', new: '#ConditionPathExists=!/rofs/etc/apparmor.d' }
+     - { old: 'ConditionPathExists=!/run/live/overlay/work', new: '#ConditionPathExists=!/run/live/overlay/work' }
