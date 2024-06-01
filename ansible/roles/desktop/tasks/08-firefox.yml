@@ -60,14 +60,14 @@
     - ansible_distribution == 'Ubuntu'
     - firefox.stat.exists == False
 
-#- name: Deskargatu firefox-esr desktop fitxategia. Ubuntu.
-#  get_url:
-#    url: https://raw.githubusercontent.com/mozilla/sumo-kb/main/install-firefox-linux/firefox.desktop
-#    dest: /opt/firefox.desktop
-#    mode: 0644
-#  when:
-#    - ansible_distribution == 'Ubuntu'
-#    - firefox.stat.exists == False
+- name: Deskargatu firefox-esr desktop fitxategia. Ubuntu.
+  get_url:
+    url: https://raw.githubusercontent.com/mozilla/sumo-kb/main/install-firefox-linux/firefox.desktop
+    dest: /usr/share/applications/firefox.desktop
+    mode: 0644
+  when:
+    - ansible_distribution == 'Ubuntu'
+    - firefox.stat.exists == False
 
 #- name: Desktop fitxategia kopiatu. Ubuntu.
 #  copy:
