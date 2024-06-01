@@ -108,3 +108,4 @@
   with_items:
      - { old: 'ConditionPathExists=!/rofs/etc/apparmor.d', new: '#ConditionPathExists=!/rofs/etc/apparmor.d' }
      - { old: 'ConditionPathExists=!/run/live/overlay/work', new: '#ConditionPathExists=!/run/live/overlay/work' }
+  when: ansible_distribution == 'Ubuntu'
