@@ -13,7 +13,7 @@
       "DefaultPopupsSetting": 2,
       "DisablePrintPreview": true,
       "DiskCacheSize": 0,
-      "ForcedLanguages": ["eu","es"],
+      "ForcedLanguages": ["eu"],
       "ForceEphemeralProfiles": false,
       "HomepageLocation": "https://www.google.com",
       "ImportBookmarks": false,
@@ -23,7 +23,7 @@
       "PrintingBackgroundGraphicsDefault": "enabled",
       "PromotionalTabsEnabled": false,
       "ShowHomeButton": true,
-      "TranslateEnabled": false,
+      "PasswordManagerEnabled": false,
       "PopupsAllowedForUrls": ["https://web2.alexiaedu.com/[*]","https://docs.google.com/[*]","https://mail.google.com/[*]"],
       "PrivacySandboxAdMeasurementEnabled": false,
       "PrivacySandboxAdTopicsEnabled": false,
@@ -67,7 +67,8 @@
             {"name": "Invidious (youtube)","url": "https://invidious.privacydev.net/" },
             {"name": "Piped (youtube)","url": "https://piped.kavin.rocks/" },
             {"name": "Photopea irudi editorea","url": "https://www.photopea.com/" },
-            {"name": "TwistedWave audio editorea","url": "https://twistedwave.com/online" }
+            {"name": "TwistedWave audio editorea","url": "https://twistedwave.com/online" },
+            {"name": "PDFtool pdf editorea","url": "https://www.pdftool.org" }
           ],"name": "Aplikazioak"
         },
         {

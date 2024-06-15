@@ -1,8 +1,25 @@
 #!/bin/sh
 # A set of command line flags that we want to set by default.
+#mkdir -p $HOME/.config/google-chrome
+#cp /opt/google/chrome/initial_preferences $HOME/.config/google-chrome/Default/Preferences
+
+FILE=$HOME/.config/google-chrome/Default/Preferences
+if [ -e "$FILE" ]; then
+    echo "$FILE exists."
+else
+    echo "$FILE doesn't exist. Copi initial_preferences file --no-first-run avoids this"
+    mkdir -p $HOME/.config/google-chrome/Default
+    cp /opt/google/chrome/initial_preferences $HOME/.config/google-chrome/Default/Preferences
+fi
+
+# Don't show first run dialog
+export CHROMIUM_FLAGS="$CHROMIUM_FLAGS --no-first-run"
 
 # Do not hide any extensions in the about:extensions dialog
 export CHROMIUM_FLAGS="$CHROMIUM_FLAGS --show-component-extension-options"
+
+# Enable GPU rasterization.
+export CHROMIUM_FLAGS="$CHROMIUM_FLAGS --enable-gpu-rasterization"
 
 # Don't display any warnings about not being the default browser
 export CHROMIUM_FLAGS="$CHROMIUM_FLAGS --no-default-browser-check"
@@ -10,10 +27,13 @@ export CHROMIUM_FLAGS="$CHROMIUM_FLAGS --no-default-browser-check"
 # Disable pinging
 export CHROMIUM_FLAGS="$CHROMIUM_FLAGS --disable-pings"
 
+# Disable the builtin media router (bug #833477)
+export CHROMIUM_FLAGS="$CHROMIUM_FLAGS --media-router=0"
+
 # Don't show any IPH popup
 export CHROMIUM_FLAGS="$CHROMIUM_FLAGS --propagate-iph-for-testing"
 
-# Don't show first run dialog
-export CHROMIUM_FLAGS="$CHROMIUM_FLAGS --no-first-run"
+# Debug
+#export CHROMIUM_FLAGS="$CHROMIUM_FLAGS --log-level=0 --enable-logging=stderr"
 
 /opt/google/chrome/google-chrome $CHROMIUM_FLAGS
