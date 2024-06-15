@@ -1,5 +1,5 @@
 #Debian sistementzako aldagaiak
 ---
-#repo: http://deb.debian.org/debian
-repo: http://ftp.fr.debian.org/debian
+repo: http://deb.debian.org/debian
+#repo: http://ftp.fr.debian.org/debian
 compo: main contrib non-free non-free-firmware
