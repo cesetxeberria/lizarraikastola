@@ -69,4 +69,5 @@
   - name: md5 fitxategia sortu.
     lineinfile:
       path: "{{ inventory_hostname }}/live/filesystem.md5"
-      line: "{{ md5.stat.checksum }}"
+      line: "{{ md5.stat.checksum }} /run/live/medium/live/filesystem.squashfs"
+      create: "true"
