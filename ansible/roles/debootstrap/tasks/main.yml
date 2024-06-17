@@ -56,3 +56,20 @@
     when:
       - filesystem_file.stat.exists == False
       - squashfs_root_dir.stat.exists == False
+
+  - name: md5 fitxategi zaharra kendu.
+    file:
+      path: "{{ inventory_hostname }}/live/filesystem.md5"
+      state: absent
+
+  - name: md5 checksum-a lortu.
+    stat:
+      path: "{{ inventory_hostname }}/live/filesystem.squashfs"
+      checksum_algorithm: md5sum
+      get_checksum: yes
+    register: md5
+
+  - name: md5 fitxategia sortu.
+    lineinfile:
+      path: "{{ inventory_hostname }}/live/filesystem.md5"
+      line: "{{ md5.stat.checksum }}"
