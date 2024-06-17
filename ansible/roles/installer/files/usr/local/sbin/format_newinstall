@@ -64,6 +64,8 @@ mkdir sda2
 mount /dev/${1}${p}2 sda2
 echo "copying the image..."
 pv /lib/live/mount/medium/live/filesystem.squashfs > sda2/filesystem.squashfs
+echo "copying the md5 file..."
+pv /lib/live/mount/medium/live/filesystem.md5 > sda2/filesystem.md5
 cd sda2
 echo "extracting the image..."
 unsquashfs filesystem.squashfs
