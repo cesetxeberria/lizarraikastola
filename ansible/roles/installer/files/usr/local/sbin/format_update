@@ -39,12 +39,13 @@ fi
 mkdir sda2
 mount /dev/${1}${p}2 sda2
 echo "Istalatutako bertsioa konprobatzen..."
-if md5sum --status -c sda2/kaixo.md5; then
+if md5sum --status -c sda2/filesystem.md5; then
   # The MD5 sum matched
   echo "Bertsio berdina instalatuta dago, ez da eguneratu behar."
   umount /dev/${1}${p}2
   rmdir sda2
   exit
+fi
 echo "Beste bertsio bat instalatuta dago, eguneratzen..."
 umount /dev/${1}${p}2
 rmdir sda2
