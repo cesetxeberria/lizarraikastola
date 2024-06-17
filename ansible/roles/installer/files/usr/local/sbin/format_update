@@ -38,15 +38,15 @@ fi
 #check if server file is already installed
 mkdir sda2
 mount /dev/${1}${p}2 sda2
-md5sum -c sda2/filesystem.md5
-if md5sum --status -c sda2/filesystem.md5; then
-  echo "Bertsio berdina instalatuta dago"
-  umount /dev/${1}${p}2
-  rmdir sda2
+echo "Istalatutako bertsioa konprobatzen..."
+checksum=`md5sum --status -c sda2/filesystem.md5`
+umount /dev/${1}${p}2
+rmdir sda2
+if $checksum; then
+  echo "Bertsio berdina instalatuta dago, ez da eguneratu behar."
   exit
 fi
-
-echo "beste bertsio bat instalatuta dago"
+echo "Beste bertsio bat instalatuta dago, eguneratzen..."
 #create partition table
 #dd if=/dev/zero of=/dev/$1 bs=10240 count=1
 #parted -s /dev/$1 mklabel $partitiontable  \
