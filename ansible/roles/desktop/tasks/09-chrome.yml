@@ -11,20 +11,16 @@
 #    architectures: amd64
 #    signed_by: https://dl.google.com/linux/linux_signing_key.pub
 
-#- name: Google-ren repoaren sinadura gehitu.
-#  ansible.builtin.apt_key:
-#    id: 4CCA1EAF950CEE4AB83976DCA040830F7FAC5991
+#- name: Google-ren repoaren sinadura jeitsi.
+#  get_url:
 #    url: https://dl.google.com/linux/linux_signing_key.pub
-#    state: present
+#    dest: /etc/apt/trusted.gpg.d/chrome.gpg
 
 #- name: Google-ren repoa gehitu.
 #  apt_repository:
-#    repo: "deb [arch=amd64] https://dl.google.com/linux/chrome/deb/ stable main"
+#    repo: "deb [signed-by=/etc/apt/trusted.gpg.d/chrome.gpg] [arch=amd64] https://dl.google.com/linux/chrome/deb/ stable main"
 #    state: present
 #    filename: google-chrome
-
-#- name: Sistema eguneratu, repo berria irakurtzeko.
-#  apt:
 #    update_cache: yes
 
 #- name: Google Chrome repositoriotik instalatu.
@@ -70,7 +66,7 @@
      Terminal=false
      Icon=google-chrome
      Type=Application
-     NoDisplay=true 
+     NoDisplay=true
 
 - name: Eguneratzailea kendu.
   file:
