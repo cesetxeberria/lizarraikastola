@@ -3,5 +3,4 @@
 - hosts: localhost
   connection: local
   roles:
-    - minimal
     - pxeserver
