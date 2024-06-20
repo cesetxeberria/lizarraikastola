@@ -1,0 +1,61 @@
+#Xfce-ren fitxategiak blokeatzen ditugu, erabiltzaileek aldaketarik ez egiteko. Ikastolako logoa jartzen dugu ere
+---
+- name: Mahaigaineko defektuzko irudia kopiatu.
+  copy:
+    src: "/usr/share/backgrounds/xfce/xfce-shapes.svg"
+    dest: "/usr/share/backgrounds/xfce/xfce-shapes-orig.svg"
+    remote_src: "yes"
+    mode: 0644
+
+- name: Mahaigaineko defektuzko irudia kendu.
+  file:
+    path: "/usr/share/backgrounds/xfce/xfce-shapes.svg"
+    state: absent
+
+- name: Ikastolako irudia kopiatu.
+  copy:
+    src: "{{ role_path }}/files/usr/share/backgrounds/xfce/ikastola.png"
+    dest: "/usr/share/backgrounds/xfce/ikastola.png"
+    mode: 0644
+
+- name: Mahaigaineko defektuzko irudia ordeztu.
+  file:
+    src: "/usr/share/backgrounds/xfce/ikastola.png"
+    dest: "/usr/share/backgrounds/xfce/xfce-shapes.svg"
+    state: link
+
+- name: Beharrezko konfigurazioak kopiatu.
+  copy:
+    src: "{{ role_path }}/files/{{ item }}"
+    dest: "/{{ item }}"
+    mode: 0644
+  with_items:
+     - "etc/xdg/xfce4/xfconf/xfce-perchannel-xml/xfce4-panel.xml"
+
+#- name: Atzeko irudia jarri xfce-n.
+#  copy:
+#    src: "{{ role_path }}/files/etc/xdg/xfce4/xfconf/xfce-perchannel-xml/xfce4-desktop.xml"
+#    dest: "/etc/xdg/xfce4/xfconf/xfce-perchannel-xml/xfce4-desktop.xml"
+#    mode: 0644
+
+#- name: Ikastolako irudia jarri sddm-n.
+#  replace:
+#    dest: "/usr/share/sddm/themes/maldives/theme.conf"
+#    regexp: '^(.*)background=(.*)$'
+#    replace: 'background=/usr/share/backgrounds/xfce/ikastola.png'
+
+#- name: Xfce blokeatu.
+#  replace:
+#    dest: "{{ item }}"
+#    regexp: 'version="1.0">'
+#    replace: 'version="1.0" locked="*" unlocked="root;@sudo">'
+#  with_items:
+#    - "/etc/xdg/xfce4/panel/default.xml"
+#    - "/etc/xdg/xfce4/xfconf/xfce-perchannel-xml/xfce4-panel.xml"
+#    - "/etc/xdg/xfce4/xfconf/xfce-perchannel-xml/xfce4-power-manager.xml"
+#    - "/etc/xdg/xfce4/xfconf/xfce-perchannel-xml/xfce4-keyboard-shortcuts.xml"
+#    - "/etc/xdg/xfce4/xfconf/xfce-perchannel-xml/keyboards.xml"
+#    - "/etc/xdg/xfce4/xfconf/xfce-perchannel-xml/xfwm4.xml"
+#    - "/etc/xdg/xfce4/xfconf/xfce-perchannel-xml/xsettings.xml"
+#    - "/etc/xdg/xfce4/xfconf/xfce-perchannel-xml/thunar.xml"
+#    - "/etc/xdg/xfce4/xfconf/xfce-perchannel-xml/xfce4-desktop.xml"
