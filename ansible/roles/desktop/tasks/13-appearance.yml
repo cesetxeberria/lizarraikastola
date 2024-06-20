@@ -1,6 +1,6 @@
-#Xfce-ren fitxategiak blokeatzen ditugu, erabiltzaileek aldaketarik ez egiteko. Ikastolako logoa jartzen dugu ere
+#Ataza honek xfce-ren itxura konfiguratzen du
 ---
-- name: Mahaigaineko defektuzko irudia kopiatu.
+- name: Mahaigaineko defektuzko irudiaren babes kopia egin.
   copy:
     src: "/usr/share/backgrounds/xfce/xfce-shapes.svg"
     dest: "/usr/share/backgrounds/xfce/xfce-shapes-orig.svg"
@@ -31,31 +31,17 @@
     mode: 0644
   with_items:
      - "etc/xdg/xfce4/xfconf/xfce-perchannel-xml/xfce4-panel.xml"
+#    - "etc/xdg/xfce4/xfconf/xfce-perchannel-xml/xfce4-power-manager.xml"
+#    - "etc/xdg/xfce4/xfconf/xfce-perchannel-xml/xfce4-keyboard-shortcuts.xml"
+#    - "etc/xdg/xfce4/xfconf/xfce-perchannel-xml/keyboards.xml"
+#    - "etc/xdg/xfce4/xfconf/xfce-perchannel-xml/xfwm4.xml"
+#    - "etc/xdg/xfce4/xfconf/xfce-perchannel-xml/xsettings.xml"
+#    - "etc/xdg/xfce4/xfconf/xfce-perchannel-xml/thunar.xml"
+#    - "etc/xdg/xfce4/xfconf/xfce-perchannel-xml/xfce4-desktop.xml"
 
-#- name: Atzeko irudia jarri xfce-n.
-#  copy:
-#    src: "{{ role_path }}/files/etc/xdg/xfce4/xfconf/xfce-perchannel-xml/xfce4-desktop.xml"
-#    dest: "/etc/xdg/xfce4/xfconf/xfce-perchannel-xml/xfce4-desktop.xml"
-#    mode: 0644
+- name: Panelaren konfigurazioa beste karpetara lotu.
+  file:
+    src: "/etc/xdg/xfce4/panel/default.xml"
+    dest: "/etc/xdg/xfce4/xfconf/xfce-perchannel-xml/xfce4-panel.xml"
+    state: link
 
-#- name: Ikastolako irudia jarri sddm-n.
-#  replace:
-#    dest: "/usr/share/sddm/themes/maldives/theme.conf"
-#    regexp: '^(.*)background=(.*)$'
-#    replace: 'background=/usr/share/backgrounds/xfce/ikastola.png'
-
-#- name: Xfce blokeatu.
-#  replace:
-#    dest: "{{ item }}"
-#    regexp: 'version="1.0">'
-#    replace: 'version="1.0" locked="*" unlocked="root;@sudo">'
-#  with_items:
-#    - "/etc/xdg/xfce4/panel/default.xml"
-#    - "/etc/xdg/xfce4/xfconf/xfce-perchannel-xml/xfce4-panel.xml"
-#    - "/etc/xdg/xfce4/xfconf/xfce-perchannel-xml/xfce4-power-manager.xml"
-#    - "/etc/xdg/xfce4/xfconf/xfce-perchannel-xml/xfce4-keyboard-shortcuts.xml"
-#    - "/etc/xdg/xfce4/xfconf/xfce-perchannel-xml/keyboards.xml"
-#    - "/etc/xdg/xfce4/xfconf/xfce-perchannel-xml/xfwm4.xml"
-#    - "/etc/xdg/xfce4/xfconf/xfce-perchannel-xml/xsettings.xml"
-#    - "/etc/xdg/xfce4/xfconf/xfce-perchannel-xml/thunar.xml"
-#    - "/etc/xdg/xfce4/xfconf/xfce-perchannel-xml/xfce4-desktop.xml"
