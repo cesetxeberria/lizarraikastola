@@ -47,6 +47,11 @@
 #    - "etc/xdg/xfce4/xfconf/xfce-perchannel-xml/xsettings.xml"
 #    - "etc/xdg/xfce4/xfconf/xfce-perchannel-xml/thunar.xml"
 
+- name: Panelaren konfigurazio orokorra kendu.
+  file:
+    path: "/etc/xdg/xfce4/panel/default.xml"
+    state: absent
+
 - name: Panelaren konfigurazioa beste karpetara lotu.
   file:
     src: "/etc/xdg/xfce4/panel/default.xml"
