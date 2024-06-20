@@ -1,6 +1,6 @@
 #Ataza honek xfce-ren itxura konfiguratzen du
 ---
-- name: Adwatia gaia eta brave ikonoak instalatu.
+- name: Adwaita gaia eta brave ikonoak instalatu.
   apt:
     name: "{{ packages }}"
   vars:
@@ -38,6 +38,7 @@
     dest: "/{{ item }}"
     mode: 0644
   with_items:
+    - "etc/xdg/xfce4/kiosk/kioskrc"
     - "etc/xdg/xfce4/xfconf/xfce-perchannel-xml/xfce4-panel.xml"
     - "etc/xdg/xfce4/xfconf/xfce-perchannel-xml/xfce4-power-manager.xml"
     - "etc/xdg/xfce4/xfconf/xfce-perchannel-xml/xfce4-keyboard-shortcuts.xml"
