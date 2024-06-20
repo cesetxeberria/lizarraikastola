@@ -32,6 +32,12 @@
     dest: "/usr/share/backgrounds/xfce/xfce-shapes.svg"
     state: link
 
+- name: Beharrezko karpetak existitzen direla ziurtatu.
+  file:
+    path: "/etc/xdg/xfce4/kiosk"
+    state: directory
+    mode: 0755
+
 - name: Beharrezko konfigurazioak kopiatu.
   copy:
     src: "{{ role_path }}/files/{{ item }}"
