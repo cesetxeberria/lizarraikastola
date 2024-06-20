@@ -8,6 +8,7 @@
     packages:
     - xfce4
     - xfce4-terminal
+    - xfce4-goodies
     - gnome-themes-extra
     - mousepad
 
