@@ -54,6 +54,6 @@
 
 - name: Panelaren konfigurazioa beste karpetara lotu.
   file:
-    src: "/etc/xdg/xfce4/panel/default.xml"
-    dest: "/etc/xdg/xfce4/xfconf/xfce-perchannel-xml/xfce4-panel.xml"
+    src: "/etc/xdg/xfce4/xfconf/xfce-perchannel-xml/xfce4-panel.xml"
+    dest: "/etc/xdg/xfce4/panel/default.xml"
     state: link
