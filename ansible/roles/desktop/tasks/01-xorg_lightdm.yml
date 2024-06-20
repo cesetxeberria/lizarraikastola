@@ -20,6 +20,12 @@
      [Seat:*]
      greeter-hide-users=true
 
+- name: Euskerako itzulpena kopiatu.
+  copy:
+    src: "{{ role_path }}/usr/share/ukui-greeter/translations/eu.qm"
+    dest: "/usr/share/ukui-greeter/translations/eu.qm"
+    mode: 0644
+
 - name: Mahaigaina bikoizteko script-a kopiatu.
   copy:
     src: "{{ role_path }}/files/usr/local/bin/bikoiztu"
