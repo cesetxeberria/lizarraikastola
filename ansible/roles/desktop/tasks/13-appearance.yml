@@ -1,5 +1,13 @@
 #Ataza honek xfce-ren itxura konfiguratzen du
 ---
+- name: Adwatia gaia eta brave ikonoak instalatu.
+  apt:
+    name: "{{ packages }}"
+  vars:
+    packages:
+    - gnome-themes-extra
+    - gnome-brave-icon-theme
+
 - name: Mahaigaineko defektuzko irudiaren babes kopia egin.
   copy:
     src: "/usr/share/backgrounds/xfce/xfce-shapes.svg"

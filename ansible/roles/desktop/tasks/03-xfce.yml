@@ -1,7 +1,7 @@
 #Ataza honek xfce mahaigaina instalatzen du. 
 #Ukui ere konfiguratzen du, defektuz xfce abiarazteko.
 ---
-- name: xfce eta adwaita instalatu.
+- name: xfce eta extrak instalatu.
   apt:
     name: "{{ packages }}"
   vars:
@@ -9,8 +9,9 @@
     - xfce4
     - xfce4-terminal
     - xfce4-goodies
-    - gnome-themes-extra
     - mousepad
+#    - gnome-themes-extra
+#    - gnome-brave-icon-theme
 
 - name: Automatikoki instalatutako desktop-base eta light-locker paketeak kendu.
   apt:
