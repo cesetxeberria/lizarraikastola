@@ -28,3 +28,5 @@
   - include_tasks: 11-search.yml
 
   - include_tasks: 12-java.yml
+
+  - include_tasks: 13-appearance.yml

@@ -22,7 +22,7 @@
 
 - name: Euskerako itzulpena kopiatu.
   copy:
-    src: "{{ role_path }}/usr/share/ukui-greeter/translations/eu.qm"
+    src: "{{ role_path }}/files/usr/share/ukui-greeter/translations/eu.qm"
     dest: "/usr/share/ukui-greeter/translations/eu.qm"
     mode: 0644
 
