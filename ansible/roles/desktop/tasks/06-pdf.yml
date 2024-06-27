@@ -18,6 +18,7 @@
     - ghostscript
     - pdftk
     - texlive-extra-utils
+    - zenity
 
 - name: PDF-ak bereiztu eta batzeko script-ak kopiatu.
   copy:
@@ -26,6 +27,7 @@
     mode: 0755
   with_items:
      - pdfakbereiztu
+     - pdfakbereiztucli
      - pdfakbatu
 
 - name: Thunar actions aldatu behar den ikusi.
