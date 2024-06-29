@@ -35,10 +35,13 @@
     url: https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
     dest: /opt/google-chrome-stable_current_amd64.deb
     mode: '0644'
+  register: download
+  ignore_errors: true
 
 - name: Google Chrome deb paketetik instalatu.
   apt:
     deb: /opt/google-chrome-stable_current_amd64.deb
+  when: download.failed == false
 
 #Script bat erabiltzen dugu irekitzerakoan aukerak gehituz.
 - name: Abiarazteko aukerak gehitzen dituen script-a kopiatu.
