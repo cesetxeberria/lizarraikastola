@@ -9,10 +9,16 @@
     - nfs-kernel-server
     - python3-distutils-extra
 
-- name: dnsmasq konfiguratu, txantiloi bidez.
+- name: dnsmasq pxe konfiguratu, txantiloi bidez.
   template:
     src: "{{ role_path }}/templates/etc/dnsmasq.d/pxe.j2"
     dest: "/etc/dnsmasq.d/pxe"
+    mode: 0644
+
+- name: dnsmasq dns-ak konfiguratu, txantiloi bidez.
+  template:
+    src: "{{ role_path }}/templates/etc/dnsmasq.d/dns.j2"
+    dest: "/etc/dnsmasq.d/dns"
     mode: 0644
 
 - name: tftp-root karpeta sortu.
