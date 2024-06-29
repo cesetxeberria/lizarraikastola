@@ -1,0 +1,7 @@
+#playbook honek sambaserver rola exekutatzen du, ordenagailu honetan bertan
+---
+- hosts: localhost
+  connection: local
+  roles:
+    - minimal
+    - sambaserver
