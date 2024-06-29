@@ -18,20 +18,21 @@
     name: "{{ packages }}"
   vars:
     packages:
-    - rsync
-    - screen
-    - nfs-common
-    - watchdog
     - atool
     - bzip2
-    - rar
-    - p7zip-full
-    - ipxe
-    - sudo
-    - ntfs-3g
     - cifs-utils
-    - util-linux-locales
+    - console-data
+    - ipxe
+    - nfs-common
+    - ntfs-3g
+    - p7zip-full
     - python3-debian
+    - rar
+    - rsync
+    - screen
+    - sudo
+    - util-linux-locales
+    - watchdog
 
  #- name: Inxi eta bideo driverrak instalatu.
  # apt:
