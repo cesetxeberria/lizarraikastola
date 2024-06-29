@@ -7,7 +7,7 @@
     packages:
     - keyboard-configuration
     - console-setup
-#    - console-data
+    - console-data
   when: ansible_distribution == 'Debian'
 
 - name: Aldatu /etc/default/keyboard teklatua espainiarra dela esateko.
