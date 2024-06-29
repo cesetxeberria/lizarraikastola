@@ -2,35 +2,6 @@
 #Ubuntun chromium paketea snap bidez instalatzen da eta ez zaigu gustatzen.
 #Debianen meet-en funtzio batzuk desaktibatuta daude chromium instalatzerakoan.
 ---
-#- name: Google-ren repoa gehitu.
-#  deb822_repository:
-#    name: google-chrome
-#    types: deb
-#    uris: https://dl.google.com/linux/chrome/deb/
-#    components: stable main
-#    suites: '{{ ansible_distribution_release }}'
-#    architectures: amd64
-#    signed_by: https://dl.google.com/linux/linux_signing_key.pub
-
-#- name: Google-ren repoaren sinadura jeitsi.
-#  get_url:
-#    url: https://dl.google.com/linux/linux_signing_key.pub
-#    dest: /etc/apt/trusted.gpg.d/chrome.gpg
-
-#- name: Google-ren repoa gehitu.
-#  apt_repository:
-#    repo: "deb [signed-by=/etc/apt/trusted.gpg.d/chrome.gpg] [arch=amd64] https://dl.google.com/linux/chrome/deb/ stable main"
-#    state: present
-#    filename: google-chrome
-#    update_cache: yes
-
-#- name: Google Chrome repositoriotik instalatu.
-#  apt:
-#    name: "{{ packages }}"
-#  vars:
-#    packages:
-#    - google-chrome-stable
-
 - name: Google Chrome instalatzailea deskargatu.
   get_url:
     url: https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
