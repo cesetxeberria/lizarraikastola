@@ -22,6 +22,7 @@
      domain {{ full_domain_name }}
      search {{ full_domain_name }}
      nameserver 127.0.0.1
+     #nameserver {{ ansible_default_ipv4.gateway }}
 
 - name: resolv.conf fitxategia automatikoki ez dela aldatuko ziurtatu.
   file:
