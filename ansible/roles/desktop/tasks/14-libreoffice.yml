@@ -33,7 +33,7 @@
     - "usr/lib/libreoffice/share/registry/lastver.xcd"
     - "usr/lib/libreoffice/share/registry/tipoftheday.xcd"
     - "usr/lib/libreoffice/share/registry/f4formula.xcd"
-    - "usr/lib/libreoffice/share/registry/tango.xcd"
+    - "usr/lib/libreoffice/share/registry/ikonoak.xcd"
 
 #- name: tango ikonoak kopiatu.
 #  copy:
