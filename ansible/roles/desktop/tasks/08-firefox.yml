@@ -7,6 +7,7 @@
 #    types: deb
 #    uris: https://packages.mozilla.org/apt
 #    components: mozilla main
+#    suites: '{{ ansible_distribution_release }}'
 #    signed_by: https://packages.mozilla.org/apt/repo-signing-key.gpg
 
 #- name: Mozillaren repoaren sinadura jeitsi.

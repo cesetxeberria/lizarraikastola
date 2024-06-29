@@ -8,6 +8,7 @@
 #    types: deb
 #    uris: https://dl.google.com/linux/chrome/deb/
 #    components: stable main
+#    suites: '{{ ansible_distribution_release }}'
 #    architectures: amd64
 #    signed_by: https://dl.google.com/linux/linux_signing_key.pub
 
