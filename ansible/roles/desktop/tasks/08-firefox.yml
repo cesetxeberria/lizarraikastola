@@ -9,6 +9,18 @@
 #    components: mozilla main
 #    signed_by: https://packages.mozilla.org/apt/repo-signing-key.gpg
 
+#- name: Mozillaren repoaren sinadura jeitsi.
+#  get_url:
+#    url: https://packages.mozilla.org/apt/repo-signing-key.gpg
+#    dest: /etc/apt/trusted.gpg.d/mozilla.gpg
+
+#- name: Mozillaren repoa gehitu.
+#  apt_repository:
+#    repo: "deb [signed-by=/etc/apt/trusted.gpg.d/mozilla.gpg] https://packages.mozilla.org/apt mozilla main"
+#    state: present
+#    filename: mozilla-firefox
+#    update_cache: yes
+
 - name: Firefox eta euskerazko lokala instalatu. Debian.
   apt:
     name: "{{ packages }}"
