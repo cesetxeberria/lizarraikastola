@@ -1,0 +1,8 @@
+#playbook honek pxeserver rola exekutatzen du, ordenagailu honetan bertan
+---
+- hosts: localhost
+  connection: local
+  roles:
+    - minimal
+    - sambaclient
+    - desktop
