@@ -11,8 +11,8 @@
 
 - name: dnsmasq konfiguratu, txantiloi bidez.
   template:
-    src: "{{ role_path }}/templates/etc/dnsmasq.d/custom.j2"
-    dest: "/etc/dnsmasq.d/custom"
+    src: "{{ role_path }}/templates/etc/dnsmasq.d/pxe.j2"
+    dest: "/etc/dnsmasq.d/pxe"
     mode: 0644
 
 - name: tftp-root karpeta sortu.
