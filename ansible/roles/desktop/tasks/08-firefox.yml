@@ -37,26 +37,6 @@
     - firefox.stat.exists == False
     - download.failed == False
 
-- name: Firefox esteka sortu /usr/bin barruan. Ubuntu.
-  file:
-    src: /opt/firefox/firefox
-    dest: /usr/bin/firefox
-    state: link
-  when:
-    - ansible_distribution == 'Ubuntu'
-    - firefox.stat.exists == False
-    - download.failed == False
-
-- name: Firefox-esr esteka sortu /usr/bin barruan. Ubuntu.
-  file:
-    src: /opt/firefox/firefox
-    dest: /usr/bin/firefox-esr
-    state: link
-  when:
-    - ansible_distribution == 'Ubuntu'
-    - firefox.stat.exists == False
-    - download.failed == False
-
 - name: Kendu deskargatutako fitxategia. Ubuntu.
   file:
     path: "/opt/firefox_esr.tar.bz2"
@@ -78,14 +58,21 @@
     - firefox.stat.exists == False
     - download.failed == False
 
-#- name: Desktop fitxategia kopiatu. Ubuntu.
-#  copy:
-#    src: "{{ role_path }}/files/usr/share/applications/firefox-esr.desktop"
-#    dest: "/usr/share/applications/firefox-esr.desktop"
-#    mode: 0644
-#  when:
-#    - ansible_distribution == 'Ubuntu'
-#    - firefox.stat.exists == False
+- name: Firefox esteka sortu /usr/bin barruan. Ubuntu.
+  file:
+    src: /opt/firefox/firefox
+    dest: /usr/bin/firefox
+    state: link
+  when:
+    - ansible_distribution == 'Ubuntu'
+
+- name: Firefox-esr esteka sortu /usr/bin barruan. Ubuntu.
+  file:
+    src: /opt/firefox/firefox
+    dest: /usr/bin/firefox-esr
+    state: link
+  when:
+    - ansible_distribution == 'Ubuntu'
 
 - name: Politikak gordetzeko karpeta sortu.
   file:
