@@ -12,10 +12,9 @@
     url: https://javadl.oracle.com/webapps/download/AutoDL?BundleId=249840_43d62d619be4e416215729597d70b8ac
     dest: /opt/jre-8u411-linux.tar.gz
     mode: '0440'
-  register: download
   ignore_errors: true
   when:
-    - not opt_java.stat.exists
+    - opt_java.stat.exists == False
     - ansible_architecture == 'x86_64'
 
 - name: jre jaitsi i386
@@ -23,11 +22,16 @@
     url: https://javadl.oracle.com/webapps/download/AutoDL?BundleId=249838_43d62d619be4e416215729597d70b8ac
     dest: /opt/jre-8u411-linux.tar.gz
     mode: '0440'
-  register: download
   ignore_errors: true
   when:
-    - not opt_java.stat.exists
+    - opt_java.stat.exists == False
     - ansible_architecture == 'i386'
+
+#ezin dut deskargan registratu bi deskarga desberdin direlako, errorea ematen du
+- name: Begiratu ea ondo deskargatu den
+  stat:
+    path: /opt/jre-8u411-linux.tar.gz
+  register: download
 
 - name: jre erauzi
   unarchive:
@@ -35,22 +39,22 @@
     dest: /opt
     remote_src: yes
   when:
-    - not opt_java.stat.exists
-    - download.failed == false
+    - opt_java.stat.exists == False
+    - download.failed == False
 
 - name: Karpetari izena aldatu
   command: mv /opt/jre1.8.0_411 /opt/jre-java
   when:
-    - not opt_java.stat.exists
-    - download.failed == false
+    - opt_java.stat.exists == False
+    - download.failed == False
 
 - name: Kendu jaitsitako fitxategia
   file:
     path: /opt/jre-8u411-linux.tar.gz
     state: absent
   when:
-    - not opt_java.stat.exists
-    - download.failed == false
+    - opt_java.stat.exists == False
+    - download.failed == False
 
 #update-alternatives --install /usr/bin/javaws javaws /opt/jre-java/bin/javaws 1102
 #update-alternatives --set javaws /opt/jre-java/bin/javaws
@@ -61,8 +65,8 @@
     link: /usr/bin/javaws
     priority: 1102
   when:
-    - not opt_java.stat.exists
-    - download.failed == false
+    - opt_java.stat.exists == False
+    - download.failed == False
 
 - name: Segurtasun politiken karpeta sortu.
   file:
