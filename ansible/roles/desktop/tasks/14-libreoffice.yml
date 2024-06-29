@@ -74,6 +74,7 @@
 
 - name: Xuxen instalatu
   command: /usr/bin/unopkg add --shared /opt/xuxen.oxt
+  ignore_errors: true #dagoeneko instalatuta badago errorea emango du
 
 - name: Xuxen instalatzailea kendu
   file:
