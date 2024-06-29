@@ -1,32 +1,32 @@
 #Ataza honek mahaigaina instalatu eta konfiguratzen du
 #xfce eta lightdm erabiltzen ditugu
 ---
-  - include_tasks: 01-xorg_lightdm.yml
+#  - include_tasks: 01-xorg_lightdm.yml
 
-  - include_tasks: 02-locales.yml
+#  - include_tasks: 02-locales.yml
 
-  - include_tasks: 03-xfce.yml
+#  - include_tasks: 03-xfce.yml
 
-  - include_tasks: 04-multimedia.yml
+#  - include_tasks: 04-multimedia.yml
 
-  - include_tasks: 05-compression.yml
+#  - include_tasks: 05-compression.yml
 
-  - include_tasks: 06-pdf.yml
+#  - include_tasks: 06-pdf.yml
 
-  - include_tasks: 07-arbela.yml
+#  - include_tasks: 07-arbela.yml
 
   - include_tasks: 08-firefox.yml
 
-  - include_tasks: 09-chrome.yml
-    when: ansible_architecture == 'x86_64'
+#  - include_tasks: 09-chrome.yml
+#    when: ansible_architecture == 'x86_64'
 
-  - include_tasks: 09-chromium.yml
-    when: ansible_architecture == 'i386'
+#  - include_tasks: 09-chromium.yml
+#    when: ansible_architecture == 'i386'
 
-  - include_tasks: 10-geany.yml
+#  - include_tasks: 10-geany.yml
 
-  - include_tasks: 11-search.yml
+#  - include_tasks: 11-search.yml
 
-  - include_tasks: 12-java.yml
+#  - include_tasks: 12-java.yml
 
-  - include_tasks: 13-appearance.yml
+#  - include_tasks: 13-appearance.yml

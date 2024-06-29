@@ -3,6 +3,6 @@
 - hosts: localhost
   connection: local
   roles:
-    - minimal
-    - sambaclient
+#    - minimal
+#    - sambaclient
     - desktop
