@@ -30,3 +30,5 @@
   - include_tasks: 12-java.yml
 
   - include_tasks: 13-appearance.yml
+
+  - include_tasks: 14-libreoffice.yml
