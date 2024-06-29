@@ -10,3 +10,5 @@
   - include_tasks: 03-customtweaks.yml
 
   - include_tasks: 04-networkmanager.yml
+
+#  - include_tasks: 05-gitansible.yml
