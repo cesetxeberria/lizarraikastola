@@ -47,3 +47,9 @@
     dest: "/etc/dnsmasq.d/samba"
     mode: 0644
   when: pxe.stat.exists == True
+
+- name: dnsmasq berrabiarazi.
+  service:
+    name: dnsmasq
+    state: restarted
+  when: pxe.stat.exists == True
