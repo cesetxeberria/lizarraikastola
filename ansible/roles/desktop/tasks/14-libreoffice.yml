@@ -1,4 +1,4 @@
-#Libreoffice instalatu eta konfigurazio batzuk jarri. Ubuntu eta Debian.
+#Ataza honek libreoffice instalatu eta konfiguratzen du. Ubuntu eta Debian.
 ---
 - name: Libreoffice instalatu.
   apt:
