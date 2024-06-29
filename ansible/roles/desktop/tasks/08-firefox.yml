@@ -33,9 +33,9 @@
     dest: /opt
     remote_src: yes
   when:
-    - download.failed == False
     - ansible_distribution == 'Ubuntu'
     - firefox.stat.exists == False
+    - download.failed == False
 
 - name: Firefox esteka sortu /usr/bin barruan. Ubuntu.
   file:
@@ -43,9 +43,9 @@
     dest: /usr/bin/firefox
     state: link
   when:
-    - download.failed == False
     - ansible_distribution == 'Ubuntu'
     - firefox.stat.exists == False
+    - download.failed == False
 
 - name: Firefox-esr esteka sortu /usr/bin barruan. Ubuntu.
   file:
@@ -53,18 +53,18 @@
     dest: /usr/bin/firefox-esr
     state: link
   when:
-    - download.failed == False
     - ansible_distribution == 'Ubuntu'
     - firefox.stat.exists == False
+    - download.failed == False
 
 - name: Kendu deskargatutako fitxategia. Ubuntu.
   file:
     path: "/opt/firefox_esr.tar.bz2"
     state: absent
   when:
-    - download.failed == False
     - ansible_distribution == 'Ubuntu'
     - firefox.stat.exists == False
+    - download.failed == False
 
 - name: Deskargatu firefox-esr desktop fitxategia. Ubuntu.
   get_url:
@@ -74,9 +74,9 @@
   register: download2
   ignore_errors: true
   when:
-    - download.failed == False
     - ansible_distribution == 'Ubuntu'
     - firefox.stat.exists == False
+    - download.failed == False
 
 #- name: Desktop fitxategia kopiatu. Ubuntu.
 #  copy:
