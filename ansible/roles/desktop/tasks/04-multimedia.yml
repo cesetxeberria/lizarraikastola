@@ -49,6 +49,8 @@
     url: https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp
     dest: /usr/local/bin/yt-dlp
     mode: 0755
+  register: download
+  ignore_errors: true
 
 - name: yt-dlp azken bertsioan dagoela ziurtatu.
   command: /usr/local/bin/yt-dlp -U
