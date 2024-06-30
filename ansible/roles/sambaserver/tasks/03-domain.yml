@@ -18,16 +18,11 @@
   debug: msg="{{ full_domain_name }} konfiguratuta dago."
   when: smb is changed
 
-- name: Zerbitzariari izena jarri.
-  hostname:
-    name: DC1
-  when: (smb1.stat.exists == False) or (smb is not changed)
-
 - name: Aurreko smb.conf fitxategia ezabatu.
   file:
     path="/etc/samba/smb.conf"
     state=absent
-  when: (smb1.stat.exists == False) or (smb is not changed)
+  when: smb is not changed
 
 - name: Domeinua konfiguratu. Pasahitza aldatu beharko da.
   ansible.builtin.command:
@@ -78,6 +73,12 @@
       - /root/ldap.keytab
       - --principal=ldap-bind
   when: (smb1.stat.exists == False) or (smb is not changed)
+
+- name: Kanpoko DNS zerbitzaria konfiguratu, konexiorik gabe ez gelditzeko.
+  replace:
+    dest: /etc/samba/smb.conf
+    regexp: "dns forwarder = {{ ansible_default_ipv4.address }}"
+    replace: "dns forwarder = {{ ansible_default_ipv4.gateway }}"
 
 - name: Samba zerbitzua berrabiarazi.
   service:

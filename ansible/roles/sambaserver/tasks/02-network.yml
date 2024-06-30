@@ -1,5 +1,9 @@
 #Ataza honek samba zerbitzariaren DNS-ak konfiguratzen ditu
 ---
+- name: Zerbitzariari izena jarri.
+  hostname:
+    name: DC1
+
 - name: resolv.conf fitxategia aldatu daitekela ziurtatu.
   file:
     path: /etc/resolv.conf
