@@ -40,7 +40,6 @@
       - --realm={{ full_domain_name }}
       - --domain={{ domain_name }}
       - --adminpass=DomainPass2
-      - --option="dns forwarder={{ ansible_default_ipv4.gateway  }}"
   when: (smb1.stat.exists == False) or (smb is not changed)
 
 - name: Sortu berri den kerberos konfigurazioa kopiatu.
