@@ -84,3 +84,8 @@
   service:
     name: samba
     state: restarted
+
+- name: Samba-ad-dc zerbitzua berrabiarazi.
+  service:
+    name: samba-ad-dc
+    state: restarted

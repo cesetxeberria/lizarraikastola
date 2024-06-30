@@ -32,3 +32,8 @@
   service:
     name: samba
     state: stopped
+
+- name: Aurretik konfiguratutako samba-ad-dc zerbitzua gelditu.
+  service:
+    name: samba-ad-dc
+    state: stopped
