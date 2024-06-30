@@ -32,8 +32,8 @@
       - provision
       - --server-role=dc
 #      - --dns-backend=SAMBA_INTERNAL
-      - --realm={{ full_domain_name }}
-      - --domain={{ domain_name }}
+      - "--realm={{ full_domain_name | upper }}"
+      - "--domain={{ domain_name | upper }}"
       - --adminpass=DomainPass2
   when: (smb1.stat.exists == False) or (smb is not changed)
 
