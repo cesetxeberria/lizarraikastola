@@ -21,13 +21,13 @@
 - name: Zerbitzariari izena jarri.
   hostname:
     name: DC1
-  when: (smb1.stat.exists == False) OR (smb is not changed)
+  when: (smb1.stat.exists == False) or (smb is not changed)
 
 - name: Aurreko smb.conf fitxategia ezabatu.
   file:
     path="/etc/samba/smb.conf"
     state=absent
-  when: (smb1.stat.exists == False) OR (smb is not changed)
+  when: (smb1.stat.exists == False) or (smb is not changed)
 
 - name: Domeinua konfiguratu. Pasahitza aldatu beharko da.
   ansible.builtin.command:
@@ -40,14 +40,14 @@
       - --realm={{ full_domain_name }}
       - --domain={{ domain_name }}
       - --adminpass=DomainPass2
-  when: (smb1.stat.exists == False) OR (smb is not changed)
+  when: (smb1.stat.exists == False) or (smb is not changed)
 
 - name: Sortu berri den kerberos konfigurazioa kopiatu.
   copy:
     src: "/var/lib/samba/private/krb5.conf"
     dest: "/etc/krb5.conf"
     mode: 0600
-  when: (smb1.stat.exists == False) OR (smb is not changed)
+  when: (smb1.stat.exists == False) or (smb is not changed)
 
 - name: ldap erabiltzaile funtzionala sortu. Konektatzeko erabiliko dugu.
   ansible.builtin.command:
@@ -57,7 +57,7 @@
       - add
       - ldap-bind
       - --random-password
-  when: (smb1.stat.exists == False) OR (smb is not changed)
+  when: (smb1.stat.exists == False) or (smb is not changed)
 
 - name: Add spn. ldap erabiltzaileak duen baimena zehaztu.
   ansible.builtin.command:
@@ -77,7 +77,7 @@
       - exportkeytab
       - /root/ldap.keytab
       - --principal=ldap-bind
-  when: (smb1.stat.exists == False) OR (smb is not changed)
+  when: (smb1.stat.exists == False) or (smb is not changed)
 
 - name: Samba zerbitzua berrabiarazi.
   service:
