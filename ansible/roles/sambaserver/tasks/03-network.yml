@@ -15,8 +15,9 @@
     dest: "/etc/resolv.conf"
     create: "true"
     block: |
+     domain {{ full_domain_name }}
      search {{ full_domain_name }}
-     nameserver {{ ansible_default_ipv4.address }}
+     nameserver 127.0.0.1
 
 - name: resolv.conf fitxategia automatikoki ez dela aldatuko ziurtatu.
   file:
