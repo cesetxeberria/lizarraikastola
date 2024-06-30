@@ -23,6 +23,12 @@
     dest: "/etc/krb5.conf"
     mode: 0600
 
+- name: Kanpoko DNS zerbitzaria konfiguratu, konexiorik gabe ez gelditzeko.
+  replace:
+    dest: /etc/samba/smb.conf
+    regexp: "dns forwarder = {{ ansible_default_ipv4.address }}"
+    replace: "dns forwarder = {{ ansible_default_ipv4.network }}"
+
 - name: smbd zerbitzua gelditu.
   service:
     name: smbd
