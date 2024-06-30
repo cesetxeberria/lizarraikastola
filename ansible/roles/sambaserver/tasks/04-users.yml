@@ -1,5 +1,17 @@
 #Ataza honek domeinuan sartzeko erabiltzailea sortuko du
 ---
+- name: ldap-bind erabiltzailea existitzen den ikusi
+  ansible.builtin.shell:
+    cmd: samba-tool user list | grep ldap-bind
+
+- name: ldap-bind erabiltzailea existitzen den ikusi
+  ansible.builtin.command:
+    argv:
+      - /usr/bin/samba-tool
+      - user
+      - show
+      - ldap-bind
+
 - name: ldap erabiltzaile funtzionala sortu.
   ansible.builtin.command:
     argv:
