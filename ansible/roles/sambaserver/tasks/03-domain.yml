@@ -21,10 +21,23 @@
     name: samba
     state: stopped
 
+- name: Domeinua aurretik konfiguratuta dagoen ikusi.
+  replace:
+    path: /etc/samba/smb.conf
+    regexp: "realm = {{ full_domain_name }}"
+    replace: "hau proba bat da"
+  check_mode: yes #aldaketa egin behar den simulatzen du, ez du benetan egiten
+  register: smb
+
+- name: Dagoeneko konfiguratuta dago.
+  debug: msg="{{ full_domain_name }} konfiguratuta dago."
+  when: smb is changed
+
 - name: Aurreko smb.conf fitxategia ezabatu.
   file:
     path="/etc/samba/smb.conf"
     state=absent
+  when: smb is not changed
 
 - name: Domeinua konfiguratu. Pasahitza aldatu beharko da.
   ansible.builtin.command:
@@ -37,12 +50,14 @@
       - --realm={{ full_domain_name }}
       - --domain={{ domain_name }}
       - --adminpass=DomainPass2
+  when: smb is not changed
 
 - name: Sortu berri den kerberos konfigurazioa kopiatu.
   copy:
     src: "/var/lib/samba/private/krb5.conf"
     dest: "/etc/krb5.conf"
     mode: 0600
+  when: smb is not changed
 
 - name: Kanpoko DNS zerbitzaria konfiguratu, konexiorik gabe ez gelditzeko.
   replace:
