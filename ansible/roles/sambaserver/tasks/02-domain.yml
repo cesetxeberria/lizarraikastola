@@ -65,7 +65,7 @@
       - /usr/bin/samba-tool
       - spn
       - add
-      - LDAP/mydomain.org
+      - "LDAP/{{ full_domain_name }}"
       - ldap-bind
   when: (smb1.stat.exists == False) or (smb is not changed)
 
