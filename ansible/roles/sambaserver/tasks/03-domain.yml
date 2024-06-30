@@ -24,7 +24,7 @@
 - name: Domeinua aurretik konfiguratuta dagoen ikusi.
   replace:
     path: /etc/samba/smb.conf
-    regexp: "realm = {{ full_domain_name }}"
+    regexp: "realm = {{ full_domain_name | upper }}" #fitxategian maiuskulaz dagoenez 'upper' jartzen dugu
     replace: "hau proba bat da"
   check_mode: yes #aldaketa egin behar den simulatzen du, ez du benetan egiten
   register: smb
