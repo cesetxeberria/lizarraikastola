@@ -48,7 +48,7 @@
   replace:
     dest: /etc/samba/smb.conf
     regexp: "dns forwarder = {{ ansible_default_ipv4.address }}"
-    replace: "dns forwarder = {{ ansible_default_ipv4.network }}"
+    replace: "dns forwarder = {{ ansible_default_ipv4.gateway }}"
 
 - name: Samba zerbitzua berrabiarazi.
   service:
