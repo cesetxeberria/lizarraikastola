@@ -67,7 +67,7 @@
       - add
       - LDAP/mydomain.org
       - ldap-bind
-  when: smb is not changed
+  when: (smb1.stat.exists == False) or (smb is not changed)
 
 - name: Keytab fitxategia sortu.
   ansible.builtin.command:
