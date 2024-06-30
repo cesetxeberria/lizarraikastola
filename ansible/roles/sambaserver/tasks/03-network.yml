@@ -1,9 +1,5 @@
 #Ataza honek samba zerbitzariaren DNS-ak konfiguratzen ditu
 ---
-- name: Zerbitzariari izena jarri.
-  hostname:
-    name: DC1
-
 - name: resolv.conf fitxategia aldatu daitekela ziurtatu.
   file:
     path: /etc/resolv.conf
@@ -29,26 +25,8 @@
   register: resolv_file
   changed_when: "'i' not in resolv_file.diff.before.attributes"
 
-#- name: Begiratu zerbitzari hau pxe zerbitzaria den.
-#  stat:
-#    path: /etc/dnsmasq.d/pxe
-#  register: pxe
-
-#- name: Kendu dns-ak desgaitzen dituen konfigurazioa.
-#  file:
-#    path: /etc/dnsmasq.d/nodns
-#    state: absent
-#  when: pxe.stat.exists == True
-
-#- name: dns-ak konfiguratu, txantiloi bidez.
-#  template:
-#    src: "{{ role_path }}/templates/etc/dnsmasq.d/samba.j2"
-#    dest: "/etc/dnsmasq.d/samba"
-#    mode: 0644
-#  when: pxe.stat.exists == True
-
-#- name: dnsmasq berrabiarazi.
-#  service:
-#    name: dnsmasq
-#    state: restarted
-#  when: pxe.stat.exists == True
+- name: Kanpoko DNS zerbitzaria konfiguratu, konexiorik gabe ez gelditzeko.
+  replace:
+    dest: /etc/samba/smb.conf
+    regexp: "dns forwarder = {{ ansible_default_ipv4.address }}"
+    replace: "dns forwarder = {{ ansible_default_ipv4.gateway }}"

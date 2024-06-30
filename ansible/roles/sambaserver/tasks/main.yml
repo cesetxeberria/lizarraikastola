@@ -5,8 +5,6 @@
 ---
   - include_tasks: 01-packages.yml
 
-  - include_tasks: 02-network.yml
+  - include_tasks: 02-domain.yml
 
-  - include_tasks: 03-domain.yml
-
-  - include_tasks: 04-users.yml
+  - include_tasks: 03-network.yml

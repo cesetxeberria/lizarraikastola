@@ -1,4 +1,4 @@
-#Ataza honek samba eta bere dependentziak instalatzen ditu
+#Ataza honek samba eta bere dependentziak instalatzen ditu. Aurretik instalatuta badago, zerbitzua gelditzen du.
 ---
 - name: Install dependencies.
   apt:
@@ -12,3 +12,23 @@
      - smbclient
      - libpam-winbind
      - libnss-winbind
+
+- name: Aurretik konfiguratutako smbd zerbitzua gelditu.
+  service:
+    name: smbd
+    state: stopped
+
+- name: Aurretik konfiguratutako nmbd zerbitzua gelditu.
+  service:
+    name: nmbd
+    state: stopped
+
+- name: Aurretik konfiguratutako winbind zerbitzua gelditu.
+  service:
+    name: winbind
+    state: stopped
+
+- name: Aurretik konfiguratutako samba zerbitzua gelditu.
+  service:
+    name: samba
+    state: stopped

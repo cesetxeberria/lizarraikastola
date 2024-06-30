@@ -1,26 +1,5 @@
-#Ataza honetan domeinua konfiguratuko dugu
+#Ataza honetan domeinua konfiguratuko dugu eta ldap-bin erabiltzaile funtzionala sortuko dugu
 ---
-#aurretik samba domeinua konfiguatuta bagenuen dena ezabatu eta berrabiaraziko du
-- name: Aurretik konfiguratutako smbd zerbitzua gelditu.
-  service:
-    name: smbd
-    state: stopped
-
-- name: Aurretik konfiguratutako nmbd zerbitzua gelditu.
-  service:
-    name: nmbd
-    state: stopped
-
-- name: Aurretik konfiguratutako winbind zerbitzua gelditu.
-  service:
-    name: winbind
-    state: stopped
-
-- name: Aurretik konfiguratutako samba zerbitzua gelditu.
-  service:
-    name: samba
-    state: stopped
-
 - name: Domeinua aurretik konfiguratuta dagoen ikusi.
   replace:
     path: /etc/samba/smb.conf
@@ -32,6 +11,11 @@
 - name: Dagoeneko konfiguratuta dago.
   debug: msg="{{ full_domain_name }} konfiguratuta dago."
   when: smb is changed
+
+- name: Zerbitzariari izena jarri.
+  hostname:
+    name: DC1
+  when: smb is not changed
 
 - name: Aurreko smb.conf fitxategia ezabatu.
   file:
@@ -59,11 +43,35 @@
     mode: 0600
   when: smb is not changed
 
-- name: Kanpoko DNS zerbitzaria konfiguratu, konexiorik gabe ez gelditzeko.
-  replace:
-    dest: /etc/samba/smb.conf
-    regexp: "dns forwarder = {{ ansible_default_ipv4.address }}"
-    replace: "dns forwarder = {{ ansible_default_ipv4.gateway }}"
+- name: ldap erabiltzaile funtzionala sortu. Konektatzeko erabiliko dugu.
+  ansible.builtin.command:
+    argv:
+      - /usr/bin/samba-tool
+      - user
+      - add
+      - ldap-bind
+      - --random-password
+  when: smb is not changed
+
+- name: Add spn. ldap erabiltzaileak duen baimena zehaztu.
+  ansible.builtin.command:
+    argv:
+      - /usr/bin/samba-tool
+      - spn
+      - add
+      - LDAP/mydomain.org
+      - ldap-bind
+  when: smb is not changed
+
+- name: Keytab fitxategia sortu.
+  ansible.builtin.command:
+    argv:
+      - /usr/bin/samba-tool
+      - domain
+      - exportkeytab
+      - /root/ldap.keytab
+      - --principal=ldap-bind
+  when: smb is not changed
 
 - name: Samba zerbitzua berrabiarazi.
   service:
