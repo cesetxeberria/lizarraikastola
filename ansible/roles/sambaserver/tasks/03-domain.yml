@@ -31,7 +31,7 @@
       - domain
       - provision
       - --server-role=dc
-#      - --dns-backend=SAMBA_INTERNAL
+      - --dns-backend=SAMBA_INTERNAL
       - "--realm={{ full_domain_name | upper }}"
       - "--domain={{ domain_name | upper }}"
       - --adminpass=DomainPass2
