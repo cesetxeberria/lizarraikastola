@@ -77,7 +77,7 @@
 - name: Kanpoko DNS zerbitzaria konfiguratu, konexiorik gabe ez gelditzeko.
   replace:
     dest: /etc/samba/smb.conf
-    regexp: "dns forwarder = {{ ansible_default_ipv4.address }}"
+    regexp: "^(.*)dns forwarder =(.*)$"
     replace: "dns forwarder = {{ ansible_default_ipv4.gateway }}"
 
 - name: Samba zerbitzua berrabiarazi.
