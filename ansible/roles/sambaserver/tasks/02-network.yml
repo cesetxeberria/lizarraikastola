@@ -19,9 +19,8 @@
     dest: "/etc/resolv.conf"
     create: "true"
     block: |
-     domain {{ full_domain_name }}
      search {{ full_domain_name }}
-     nameserver 127.0.0.1
+     nameserver {{ ansible_default_ipv4.address }}
 
 - name: resolv.conf fitxategia automatikoki ez dela aldatuko ziurtatu.
   file:
@@ -30,26 +29,26 @@
   register: resolv_file
   changed_when: "'i' not in resolv_file.diff.before.attributes"
 
-- name: Begiratu zerbitzari hau pxe zerbitzaria den.
-  stat:
-    path: /etc/dnsmasq.d/pxe
-  register: pxe
+#- name: Begiratu zerbitzari hau pxe zerbitzaria den.
+#  stat:
+#    path: /etc/dnsmasq.d/pxe
+#  register: pxe
 
-- name: Kendu dns-ak desgaitzen dituen konfigurazioa.
-  file:
-    path: /etc/dnsmasq.d/nodns
-    state: absent
-  when: pxe.stat.exists == True
+#- name: Kendu dns-ak desgaitzen dituen konfigurazioa.
+#  file:
+#    path: /etc/dnsmasq.d/nodns
+#    state: absent
+#  when: pxe.stat.exists == True
 
-- name: dns-ak konfiguratu, txantiloi bidez.
-  template:
-    src: "{{ role_path }}/templates/etc/dnsmasq.d/samba.j2"
-    dest: "/etc/dnsmasq.d/samba"
-    mode: 0644
-  when: pxe.stat.exists == True
+#- name: dns-ak konfiguratu, txantiloi bidez.
+#  template:
+#    src: "{{ role_path }}/templates/etc/dnsmasq.d/samba.j2"
+#    dest: "/etc/dnsmasq.d/samba"
+#    mode: 0644
+#  when: pxe.stat.exists == True
 
-- name: dnsmasq berrabiarazi.
-  service:
-    name: dnsmasq
-    state: restarted
-  when: pxe.stat.exists == True
+#- name: dnsmasq berrabiarazi.
+#  service:
+#    name: dnsmasq
+#    state: restarted
+#  when: pxe.stat.exists == True
