@@ -1,5 +1,26 @@
 #Ataza honetan domeinua konfiguratuko dugu
 ---
+#aurretik samba domeinua konfiguatuta bagenuen dena ezabatu eta berrabiaraziko du
+- name: Aurretik konfiguratutako smbd zerbitzua gelditu.
+  service:
+    name: smbd
+    state: stopped
+
+- name: Aurretik konfiguratutako nmbd zerbitzua gelditu.
+  service:
+    name: nmbd
+    state: stopped
+
+- name: Aurretik konfiguratutako winbind zerbitzua gelditu.
+  service:
+    name: winbind
+    state: stopped
+
+- name: Aurretik konfiguratutako samba zerbitzua gelditu.
+  service:
+    name: samba
+    state: stopped
+
 - name: Aurreko smb.conf fitxategia ezabatu.
   file:
     path="/etc/samba/smb.conf"
@@ -29,22 +50,7 @@
     regexp: "dns forwarder = {{ ansible_default_ipv4.address }}"
     replace: "dns forwarder = {{ ansible_default_ipv4.network }}"
 
-- name: smbd zerbitzua gelditu.
-  service:
-    name: smbd
-    state: stopped
-
-- name: nmbd zerbitzua gelditu.
-  service:
-    name: nmbd
-    state: stopped
-
-- name: winbind zerbitzua gelditu.
-  service:
-    name: winbind
-    state: stopped
-
-- name: samba zerbitzua berrabiarazi.
+- name: Samba zerbitzua berrabiarazi.
   service:
     name: samba
     state: restarted
