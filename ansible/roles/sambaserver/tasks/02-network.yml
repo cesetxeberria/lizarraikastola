@@ -29,9 +29,3 @@
     attr: +i
   register: resolv_file
   changed_when: "'i' not in resolv_file.diff.before.attributes"
-
-- name: Kanpoko DNS zerbitzaria konfiguratu, konexiorik gabe ez gelditzeko.
-  replace:
-    dest: /etc/samba/smb.conf
-    regexp: "dns forwarder = {{ ansible_default_ipv4.address }}"
-    replace: "dns forwarder = {{ ansible_default_ipv4.gateway }}"
