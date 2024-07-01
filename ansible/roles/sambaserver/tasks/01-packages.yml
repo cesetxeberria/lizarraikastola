@@ -8,6 +8,7 @@
      - samba
      - krb5-user
      - krb5-config
+     - krb5-pkinit
      - winbind
      - smbclient
      - libpam-winbind
