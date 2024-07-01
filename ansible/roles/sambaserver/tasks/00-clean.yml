@@ -20,21 +20,23 @@
     name: samba
     state: stopped
 
-
 #- name: Datu base fitxategi zaharrak ezabatu.
 #  shell: /bin/rm -rf /run/samba/*.tdb
-
 # smbd -b | egrep "LOCKDIR|STATEDIR|CACHEDIR|PRIVATE_DIR"
-- name: Datu base fitxategi zaharrak ezabatu.
-  ansible.builtin.command:
-    argv:
-      - /usr/bin/rm
-      - rf
-      - "{{ dirs }}/*.tdb"
-      - "{{ dirs }}/*.ldb"
-  vars:
-    dirs:
+- name: List files matching "*.tdb"
+  find:
+    paths: "{{ item }}"
+    patterns: "*.tdb"
+  register: to_remove
+  with_items:
      - /run/samba #LOCKDIR
      - /var/lib/samba #STATEDIR
      - /var/cache/samba #CACHEDIR
      - /var/lib/samba/private #PRIVATEDIR
+
+- name: Kendu aurkitutako fitxategiak
+  file:
+    path: "{{ item.path }}"
+    state: absent
+  with_items: "{{ to_remove.files }}"
+  when: to_remove.matched > 0
