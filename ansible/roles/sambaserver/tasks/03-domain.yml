@@ -31,6 +31,7 @@
       - domain
       - provision
       - --server-role=dc
+      - --use-rfc2307
       - --dns-backend=SAMBA_INTERNAL
       - "--realm={{ full_domain_name | upper }}"
       - "--domain={{ domain_name | upper }}"
