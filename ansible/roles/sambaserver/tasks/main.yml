@@ -3,6 +3,8 @@
 #https://samba.tranquil.it/doc/en/samba_config_server/debian/server_install_samba_debian.html
 
 ---
+  - include_tasks: 00-clean.yml
+
   - include_tasks: 01-packages.yml
 
   - include_tasks: 02-network.yml

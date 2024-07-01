@@ -1,0 +1,40 @@
+#Ataza honek aurreko samba instalazioa garbitzen du
+---
+- name: smbd zerbitzua gelditu.
+  service:
+    name: smbd
+    state: stopped
+
+- name: nmbd zerbitzua gelditu.
+  service:
+    name: nmbd
+    state: stopped
+
+- name: winbind zerbitzua gelditu.
+  service:
+    name: winbind
+    state: stopped
+
+- name: samba zerbitzua gelditu.
+  service:
+    name: samba
+    state: stopped
+
+
+#- name: Datu base fitxategi zaharrak ezabatu.
+#  shell: /bin/rm -rf /run/samba/*.tdb
+
+# smbd -b | egrep "LOCKDIR|STATEDIR|CACHEDIR|PRIVATE_DIR"
+- name: Datu base fitxategi zaharrak ezabatu.
+  ansible.builtin.command:
+    argv:
+      - /usr/bin/rm
+      - rf
+      - "{{ dirs }}/*.tdb"
+      - "{{ dirs }}/*.ldb"
+  vars:
+    dirs:
+     - /run/samba #LOCKDIR
+     - /var/lib/samba #STATEDIR
+     - /var/cache/samba #CACHEDIR
+     - /var/lib/samba/private #PRIVATEDIR

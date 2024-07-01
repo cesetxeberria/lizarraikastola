@@ -24,22 +24,7 @@
     dest: "/etc/krb5.conf"
     mode: 0600
 
-- name: smbd zerbitzua gelditu.
-  service:
-    name: smbd
-    state: stopped
-
-- name: nmbd zerbitzua gelditu.
-  service:
-    name: nmbd
-    state: stopped
-
-- name: winbind zerbitzua gelditu.
-  service:
-    name: winbind
-    state: stopped
-
 - name: samba zerbitzua berrabiarazi.
   service:
     name: samba
-    state: restarted
+    state: started
