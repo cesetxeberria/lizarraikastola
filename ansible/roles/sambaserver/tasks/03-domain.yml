@@ -1,0 +1,45 @@
+#Ataza honek domeinua konfiguratzen du
+---
+- name: smb.conf fitxategi zaharra kendu.
+  file:
+    path="/etc/samba/smb.conf"
+    state=absent
+
+- name: Domeinua konfiguratu samba-tool erabiliz.
+  ansible.builtin.command:
+    argv:
+      - /usr/bin/samba-tool
+      - domain
+      - provision
+      - --server-role=dc
+#      - --use-rfc2307
+      - --dns-backend=SAMBA_INTERNAL
+      - --realm=MYDOMAIN.ORG
+      - --domain=MYDOMAIN
+      - --adminpass=DomainPass2
+
+- name: Kerberos konfigurazioa kopiatu.
+  copy:
+    src: "/var/lib/samba/private/krb5.conf"
+    dest: "/etc/krb5.conf"
+    mode: 0600
+
+- name: smbd zerbitzua gelditu.
+  service:
+    name: smbd
+    state: stopped
+
+- name: nmbd zerbitzua gelditu.
+  service:
+    name: nmbd
+    state: stopped
+
+- name: winbind zerbitzua gelditu.
+  service:
+    name: winbind
+    state: stopped
+
+- name: samba zerbitzua berrabiarazi.
+  service:
+    name: samba
+    state: restarted

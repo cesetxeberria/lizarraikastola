@@ -1,0 +1,14 @@
+#Ataa honek samba eta bere dependentziak instalatzen ditu
+---
+- name: Beharrezko programak instalatu.
+  apt:
+    name: "{{ packages }}"
+  vars:
+    packages:
+     - samba
+     - krb5-user
+     - krb5-config
+     - winbind
+     - smbclient
+     - libpam-winbind
+     - libnss-winbind

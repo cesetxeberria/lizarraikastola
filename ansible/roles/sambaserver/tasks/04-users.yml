@@ -1,0 +1,37 @@
+#Ataza honek bi erabiltzaile sortzen ditu. Bat probak egiteko da, bestea konektatzeko erabiltzen dugu.
+---
+- name: Probetarako "sambauser" erabiltzailea sortu.
+  ansible.builtin.command:
+    argv:
+      - /usr/bin/samba-tool
+      - user
+      - add
+      - sambauser
+      - Password2
+
+- name: Konexioa egiteko ldap-bind erabiltzaile funtzionala sortu.
+  ansible.builtin.command:
+    argv:
+      - /usr/bin/samba-tool
+      - user
+      - add
+      - ldap-bind
+      - Password2
+
+- name: ldap-bind erabiltzaileari spn informazioa gehitu.
+  ansible.builtin.command:
+    argv:
+      - /usr/bin/samba-tool
+      - spn
+      - add
+      - LDAP/mydomain.org
+      - ldap-bind
+
+- name: ldap-bind erabiltzailearen keytab-a exportatu.
+  ansible.builtin.command:
+    argv:
+      - /usr/bin/samba-tool
+      - domain
+      - exportkeytab
+      - /root/ldap.keytab
+      - --principal=ldap-bind

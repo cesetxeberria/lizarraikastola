@@ -1,0 +1,12 @@
+#rol honek Samba domeinu kontroladore moduan (DC) konfiguratzen du
+#https://wiki.samba.org/index.php/Setting_up_Samba_as_an_Active_Directory_Domain_Controller#Provisioning_Samba_AD_in_Non-interactive_Mode
+#https://samba.tranquil.it/doc/en/samba_config_server/debian/server_install_samba_debian.html
+
+---
+  - include_tasks: 01-packages.yml
+
+  - include_tasks: 02-network.yml
+
+  - include_tasks: 03-domain.yml
+
+  - include_tasks: 04-users.yml

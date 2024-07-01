@@ -1,0 +1,30 @@
+#Ataza honek dns-ak konfiguratzen ditu
+---
+- name: Zerbitzariaren izena jarri.
+  hostname:
+    name: DC1
+
+- name: resolv.conf aldatu daitekela ziurtatu.
+  file:
+    path: /etc/resolv.conf
+    attr: -i
+
+- name: resolv.conf fitxategi zaharra ezabatu.
+  file:
+    path="/etc/resolv.conf"
+    state=absent
+
+- name: resolv.conf fitxategi berria sortu.
+  blockinfile:
+    dest: "/etc/resolv.conf"
+    create: "true"
+    block: |
+     search mydomain.org
+     nameserver 127.0.0.1
+
+- name: resolv.conf fitxategia aldaezina dela ziurtatu.
+  file:
+    path: /etc/resolv.conf
+    attr: +i
+  register: resolv_file
+  changed_when: "'i' not in resolv_file.diff.before.attributes"
